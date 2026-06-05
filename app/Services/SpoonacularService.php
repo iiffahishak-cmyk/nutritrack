@@ -320,7 +320,7 @@ public function __construct(?string $apiKey = null)
             'spoonacular_id' => (int) $recipe['id'],
             'meal_name'      => trim($recipe['title'] ?? 'Unnamed Recipe'),
             'image_url'      => $recipe['image'] ?? null,
-           'description' => $this->shortDescription($raw['summary'] ?? '', $raw['title'] ?? ''),
+            'description'    => $this->shortDescription($recipe['summary'] ?? '', $recipe['title'] ?? ''),
               
             // Core nutrition (all per serving)
             'calories'   => (int) round($get('Calories')),
@@ -532,31 +532,63 @@ public function __construct(?string $apiKey = null)
     }
 private function shortDescription(?string $summary, string $mealName = ''): string
 {
-    $text = html_entity_decode(strip_tags($summary ?? ''));
+    $fallback = 'A balanced meal option suitable for the recommendation system.';
+
+    $text = html_entity_decode(strip_tags($summary ?? ''), ENT_QUOTES | ENT_HTML5);
+    $text = preg_replace('/\s+/', ' ', $text);
+    $text = trim($text);
+
+    if ($text === '') {
+        return $fallback;
+    }
+
+    $text = preg_replace([
+        '/\bThis recipe serves \d+[^.]*\./i',
+        '/\bThis recipe makes \d+[^.]*\./i',
+        '/\bFor \$?[\d.,]+ per serving[^.]*\./i',
+        '/\bThis recipe covers \d+%[^.]*\./i',
+        '/\bIt is brought to you by [^.]*\./i',
+        '/\bIt is provided by [^.]*\./i',
+        '/\bFrom preparation to the plate[^.]*\./i',
+        '/\bIf you have [^.]*on hand[^.]*\./i',
+        '/\bIf you like this recipe[^.]*\./i',
+        '/\b\d+ people (?:have made|were glad|liked)[^.]*\./i',
+        '/\bTaking all factors into account[^.]*\./i',
+    ], ' ', $text);
 
     $text = preg_replace('/\s+/', ' ', $text);
     $text = trim($text);
 
-    // Remove very common Spoonacular wording if it appears
-    $text = preg_replace('/This recipe.*?servings?\./i', '', $text);
-    $text = preg_replace('/It is brought to you by.*?\./i', '', $text);
-
-    $text = trim($text);
-
     if ($text === '') {
-        return $mealName
-            ? "A balanced meal option based on {$mealName}."
-            : 'A balanced meal option suitable for the recommendation system.';
+        return $fallback;
     }
 
-    // Keep only first sentence if possible
-    $sentences = preg_split('/(?<=[.!?])\s+/', $text);
+    $sentences = preg_split('/(?<=[.!?])\s+/', $text, -1, PREG_SPLIT_NO_EMPTY) ?: [];
+    $skipPattern = '/\b(spoonacular|brought to you|provided by|per serving|servings?|source|score of|popular score|health score|recipe)\b/i';
 
-    $short = $sentences[0] ?? $text;
+    foreach ($sentences as $sentence) {
+        $sentence = trim($sentence);
 
-    // Hard limit so admin form stays neat
+        if ($sentence !== '' && ! preg_match($skipPattern, $sentence)) {
+            $short = $sentence;
+            break;
+        }
+    }
+
+    $short = $short ?? '';
+
+    if ($short === '') {
+        return $fallback;
+    }
+
+    if (! preg_match('/[.!?]$/', $short)) {
+        $short .= '.';
+    }
+
     if (strlen($short) > 180) {
-        $short = substr($short, 0, 177) . '...';
+        $short = substr($short, 0, 177);
+        $short = preg_replace('/\s+\S*$/', '', $short);
+        $short = rtrim($short, " \t\n\r\0\x0B,;:-") . '...';
     }
 
     return $short;
