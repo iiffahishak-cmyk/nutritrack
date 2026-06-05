@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Meal;
 use App\Services\MealImageService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MealController extends Controller
 {
@@ -186,4 +187,16 @@ class MealController extends Controller
 
     return redirect()->route('admin.meals.edit', $meal->meal_id)
         ->with('success', 'Meal updated successfully.');
-}}
+}
+
+public function destroy($id)
+{
+    $meal = Meal::findOrFail($id);
+    $mealName = $meal->meal_name;
+
+    $meal->delete();
+
+    return redirect()->route('admin.meals.index')
+        ->with('success', "\"{$mealName}\" deleted successfully.");
+}
+}

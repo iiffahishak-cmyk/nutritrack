@@ -60,7 +60,7 @@ Route::delete('/profile/edit', [ProfileController::class, 'destroy'])->name('pro
 
     // ── DIARY & LOGGING ──────────────────────────────────
     Route::get('/my-diary', [DiaryController::class, 'index'])->name('diary.index');
-    Route::get('/meals/diary', [HybridRecommendationController::class, 'diary'])->name('meals.diary');
+    Route::get('/meals/diary', [DiaryController::class, 'index'])->name('meals.diary');
     Route::get('/food-logger', [FoodLoggerController::class, 'index'])->name('food-logger.index');
     Route::post('/food-logger/analyze', [FoodLoggerController::class, 'analyze'])->name('food-logger.analyze');
     Route::post('/food-logger/save', [FoodLoggerController::class, 'save'])->name('food-logger.save');
@@ -105,7 +105,8 @@ Route::middleware(['auth', 'admin'])
 Route::match(['get', 'post'], '/recommendation-test', [RecommendationTestController::class, 'index'])
     ->name('recommendation-test.index');
     
-        Route::resource('meals', AdminMealController::class);
+        Route::resource('meals', AdminMealController::class)
+            ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
         Route::resource('users', AdminUserController::class)->only(['index', 'show', 'edit', 'update', 'destroy']);
         Route::delete('users/{id}/profile', [AdminUserController::class, 'destroyProfile'])->name('users.destroyProfile');
 
