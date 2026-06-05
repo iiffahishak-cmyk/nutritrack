@@ -89,7 +89,19 @@ public function index()
             }
         }
 
-        $safeMeals = (clone $query)->where('calories', '<=', $calorieLimit)->get();
+        $preferredQuery = clone $query;
+
+        if (!empty($userCuisine)) {
+            $preferredQuery->where('cuisine_type', $userCuisine);
+        }
+
+        $safeMeals = !empty($userCuisine)
+            ? (clone $preferredQuery)->where('calories', '<=', $calorieLimit)->get()
+            : (clone $query)->where('calories', '<=', $calorieLimit)->get();
+
+        if ($safeMeals->isEmpty() && !empty($userCuisine)) {
+            $safeMeals = $preferredQuery->orderBy('calories', 'asc')->limit(5)->get();
+        }
 
         if ($safeMeals->isEmpty()) {
             $safeMeals = $query->orderBy('calories', 'asc')->limit(5)->get();
