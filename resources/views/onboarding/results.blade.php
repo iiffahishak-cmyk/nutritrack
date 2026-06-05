@@ -353,7 +353,7 @@ body {
                     <div class="result-step">
                         <div class="step-num">3</div>
                         <div>
-                            <strong>Use Daily Picks</strong>
+                            <strong>Use Meal Options</strong>
                             <span>Choose meals based on cuisine, allergy, and calorie target.</span>
                         </div>
                     </div>

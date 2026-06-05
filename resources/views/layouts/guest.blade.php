@@ -406,14 +406,14 @@
                 <h1>Healthy eating starts with one smart choice.</h1>
 
                 <p>
-                    Access your daily plan, daily picks, weekly planner, AI food logger, and meal diary in one place.
+                    Access your Daily Plan, Meal Options, Weekly Plan, AI Food Logger, and Meal Log in one place.
                 </p>
 
                 <div class="auth-points">
                     <div class="auth-point">🥗 Daily Plan</div>
-                    <div class="auth-point">✨ Daily Picks</div>
+                    <div class="auth-point">✨ Meal Options</div>
                     <div class="auth-point">🤖 AI Logger</div>
-                    <div class="auth-point">📘 Meal Diary</div>
+                    <div class="auth-point">📘 Meal Log</div>
                 </div>
             </div>
 

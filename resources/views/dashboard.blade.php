@@ -799,7 +799,7 @@ if ($profile && $profile->height_cm > 0 && $profile->weight_kg > 0) {
             <i class="bi bi-exclamation-triangle-fill fs-4 flex-shrink-0" style="color: var(--orange);"></i>
 
             <div style="flex:1;">
-                <strong style="color:#C2410C;">Complete your health profile to unlock recommendations.</strong>
+                <strong style="color:#C2410C;">Complete your health profile to unlock Meal Options.</strong>
                 <span class="text-muted ms-1" style="font-size:.88rem;">
                     NutriTrack needs your weight, height, activity level, and goal to calculate your calorie target.
                 </span>

@@ -206,7 +206,7 @@
                     Admin Meal Database
                 </div>
                 <h1>Manage Meals</h1>
-                <p>Add, edit, filter, and improve meals used by Daily Plan, Daily Picks, and Weekly Plan.</p>
+                <p>Add, edit, filter, and improve meals used by Daily Plan, Meal Options, and Weekly Plan.</p>
             </div>
 
             <a href="{{ route('admin.meals.create') }}" class="nt-btn btn-white">

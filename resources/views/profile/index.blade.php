@@ -765,7 +765,7 @@ body {
 
                         <div class="info-box mt-4">
                             <i class="bi bi-info-circle-fill me-1"></i>
-                            NutriTrack uses this information to calculate your daily calorie target and personalize recommendations.
+                            NutriTrack uses this information to calculate your daily calorie target and personalize Meal Options.
                         </div>
 
                         <button type="submit" class="submit-btn mt-4">
@@ -890,7 +890,7 @@ body {
 
                         <a href="{{ route('meals.hybrid-recommend') }}" class="action-btn mt-3">
                             <i class="bi bi-stars"></i>
-                            View My Recommendations
+                            View Meal Options
                         </a>
                     @else
                         <div class="empty-state">
@@ -901,7 +901,7 @@ body {
                             <h5 class="fw-bold text-primary mb-2">No profile yet</h5>
 
                             <p class="text-muted mb-0">
-                                Fill in the form to unlock your DCR, BMI, and personalized meal recommendations.
+                                Fill in the form to unlock your DCR, BMI, and personalized Meal Options.
                             </p>
                         </div>
                     @endif

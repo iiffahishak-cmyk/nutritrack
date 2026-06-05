@@ -324,7 +324,7 @@
                         <a href="{{ route('diary.index') }}"
                            class="nav-link-custom {{ request()->routeIs('diary.*') ? 'active' : '' }}">
                             <i class="bi bi-journal-check"></i>
-                            Diary
+                            Meal Log
                         </a>
                     
                         <a href="{{ route('profile.index') }}"
@@ -397,7 +397,7 @@
                             <li>
                                 <a class="dropdown-item" href="{{ route('diary.index') }}">
                                     <i class="bi bi-journal-check"></i>
-                                    My Diary
+                                    My Meal Log
                                 </a>
                             </li>
                             <li>

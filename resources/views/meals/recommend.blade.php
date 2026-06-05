@@ -580,7 +580,7 @@ body {
                                         class="save-btn"
                                         onclick="saveRecommendedMeal({{ $meal->meal_id }}, '{{ $time }}', this)">
                                     <i class="bi bi-journal-plus"></i>
-                                    Save to Diary
+                                    Save to Meal Log
                                 </button>
                             </div>
                         </article>
@@ -766,7 +766,7 @@ function saveRecommendedMeal(mealId, mealTime, btn) {
         if (data.success) {
             btn.innerHTML = '<i class="bi bi-check-circle-fill"></i> Saved';
             btn.style.background = 'linear-gradient(135deg, #16A34A, #15803D)';
-            showToast(data.message || 'Meal saved to diary.');
+            showToast(data.message || 'Meal saved to Meal Log.');
         } else {
             btn.innerHTML = originalText;
             btn.disabled = false;

@@ -745,7 +745,7 @@ body {
 
                         <a href="{{ route('diary.index') }}" class="nt-btn btn-glass">
                             <i class="bi bi-journal-check"></i>
-                            View My Saved Meals
+                            View My Meal Log
                         </a>
                     </div>
                 </div>
@@ -780,7 +780,7 @@ body {
                 <div class="step-item">
                     <div class="step-num">2</div>
                     <strong>Save meals</strong>
-                    <span>Click Add to Diary for meals you want to keep.</span>
+                    <span>Click Add to Meal Log for meals you want to keep.</span>
                 </div>
 
                 <div class="step-item">
@@ -809,13 +809,13 @@ body {
             @if($isCF)
                 <h6>Rating-supported mode active</h6>
                 <p>
-                    Your meal ratings are now used together with profile-based matching to improve your recommendations.
+                    Your meal ratings are now used together with profile-based matching to improve your Meal Options.
                 </p>
             @else
                 <h6>Profile-based mode active</h6>
                 <p>
                     Rate <strong>{{ $remaining }}</strong> more meal{{ $remaining !== 1 ? 's' : '' }}
-                    to unlock rating-supported recommendation improvement.
+                    to unlock rating-supported Meal Options improvement.
                 </p>
             @endif
 
@@ -957,7 +957,7 @@ body {
                                     id="save-btn-{{ $mealId }}"
                                     onclick="saveMeal({{ $mealId }}, '{{ $slot }}', this)">
                                 <i class="bi bi-plus-circle"></i>
-                                Add to Diary
+                                Add to Meal Log
                             </button>
                         </div>
                     </article>
@@ -973,7 +973,7 @@ body {
     @empty
         <div class="empty-slot">
             <i class="bi bi-cpu fs-2 d-block mb-2"></i>
-            <strong>No recommendations generated yet.</strong>
+            <strong>No Meal Options generated yet.</strong>
             <p class="mb-3 mt-1">Complete your health profile, then refresh this page.</p>
 
             <a href="{{ route('meals.hybrid-recommend', ['refresh' => now()->timestamp]) }}" class="nt-btn btn-white" style="background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:white;">
@@ -1042,7 +1042,7 @@ async function saveMeal(mealId, slot, btn) {
             btn.style.background = 'var(--green-soft)';
             btn.style.color = 'var(--green)';
             btn.style.borderColor = 'rgba(22,163,74,.25)';
-            showToast(data.message ?? 'Meal added to diary.');
+            showToast(data.message ?? 'Meal added to Meal Log.');
         } else {
             btn.disabled = false;
             btn.innerHTML = original;

@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'My Meal Diary')
+@section('title', 'My Meal Log')
 
 @section('content')
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h2 class="fw-bold mb-1"><i class="bi bi-journal-check text-primary me-2"></i>My Meal Diary</h2>
-            <p class="text-muted mb-0">History of all your saved AI recommendations.</p>
+            <h2 class="fw-bold mb-1"><i class="bi bi-journal-check text-primary me-2"></i>My Meal Log</h2>
+            <p class="text-muted mb-0">History of meals saved from Meal Options, Daily Plan, and AI Food Logger.</p>
         </div>
     </div>
 
@@ -44,10 +44,10 @@
         @else
             <div class="text-center py-5">
                 <i class="bi bi-journal-x text-muted opacity-50" style="font-size: 4rem;"></i>
-                <h5 class="fw-bold mt-3">Your diary is empty</h5>
-                <p class="text-muted">Go to AI Recommendations and save some meals to see them here!</p>
+                <h5 class="fw-bold mt-3">Your meal log is empty</h5>
+                <p class="text-muted">Go to Meal Options and save some meals to see them here!</p>
                 <a href="{{ route('meals.hybrid-recommend') }}" class="btn btn-primary mt-2 rounded-pill px-4">
-                    Get Recommendations
+                    View Meal Options
                 </a>
             </div>
         @endif
