@@ -1,17 +1,16 @@
 {{-- resources/views/meals/hybrid-recommend.blade.php --}}
 @extends('layouts.app')
-@section('title', 'Meal Options — NutriTrack')
+@section('title', 'Meal Options - NutriTrack')
 
 @push('styles')
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 :root {
     --blue: #176BFF;
     --blue-dark: #0B3D91;
     --blue-soft: #EAF2FF;
-    --cyan: #20C7FF;
     --green: #16A34A;
     --green-soft: #EAFBF1;
     --orange: #F97316;
@@ -19,316 +18,269 @@
     --purple: #7C3AED;
     --purple-soft: #F3E8FF;
     --red: #DC2626;
-    --red-soft: #FEE2E2;
-    --bg: #F6F9FF;
-    --card: rgba(255,255,255,.86);
     --text: #0F172A;
     --muted: #64748B;
-    --line: rgba(23,107,255,.12);
-    --shadow: 0 24px 70px rgba(23,107,255,.12);
-    --shadow-soft: 0 14px 40px rgba(15,23,42,.07);
+    --line: rgba(15,23,42,.08);
+    --surface: rgba(255,255,255,.82);
+    --surface-strong: rgba(255,255,255,.94);
+    --shadow: 0 14px 36px rgba(15,23,42,.07);
+    --shadow-hover: 0 20px 48px rgba(23,107,255,.12);
 }
 
 body {
     font-family: 'Inter', sans-serif;
     background:
-        radial-gradient(circle at 10% 10%, rgba(32,199,255,.15), transparent 28%),
-        radial-gradient(circle at 90% 6%, rgba(23,107,255,.14), transparent 30%),
-        linear-gradient(135deg, #F8FBFF 0%, #EEF5FF 52%, #F9FCFF 100%);
+        radial-gradient(circle at 8% 8%, rgba(23,107,255,.08), transparent 27%),
+        radial-gradient(circle at 92% 4%, rgba(32,199,255,.10), transparent 25%),
+        linear-gradient(135deg, #F8FBFF 0%, #EEF5FF 100%);
     color: var(--text);
 }
 
-.hybrid-page {
-    position: relative;
+.meal-options-page {
+    padding: 1.15rem 0 2.5rem;
 }
 
-.hybrid-page::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background-image:
-        linear-gradient(rgba(23,107,255,.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(23,107,255,.04) 1px, transparent 1px);
-    background-size: 58px 58px;
-    mask-image: linear-gradient(to bottom, rgba(0,0,0,.75), transparent 90%);
-    z-index: -1;
+.page-top {
+    margin-bottom: .9rem;
 }
 
-.hero-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 38px;
-    padding: clamp(1.4rem, 3vw, 2.4rem);
-    color: white;
-    background:
-        radial-gradient(circle at 18% 20%, rgba(32,199,255,.38), transparent 28%),
-        radial-gradient(circle at 92% 16%, rgba(255,255,255,.16), transparent 24%),
-        linear-gradient(135deg, #071B46 0%, #0B3D91 48%, #176BFF 100%);
-    box-shadow: var(--shadow);
-    margin-bottom: 1.2rem;
+.page-top-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(15,23,42,.08);
 }
 
-.hero-card::after {
-    content: "";
-    position: absolute;
-    right: -120px;
-    bottom: -130px;
-    width: 380px;
-    height: 380px;
-    border-radius: 50%;
-    background: rgba(255,255,255,.1);
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-}
-
-.hero-kicker {
+.page-kicker {
     display: inline-flex;
     align-items: center;
     gap: .45rem;
-    padding: .45rem .78rem;
-    border-radius: 999px;
-    background: rgba(255,255,255,.13);
-    border: 1px solid rgba(255,255,255,.2);
-    color: rgba(255,255,255,.88);
+    color: var(--blue);
     font-size: .72rem;
     font-weight: 900;
     letter-spacing: .08em;
     text-transform: uppercase;
-    margin-bottom: .85rem;
-    backdrop-filter: blur(10px);
-}
-
-.hero-card h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    line-height: 1;
-    letter-spacing: -.045em;
-    margin-bottom: .6rem;
-}
-
-.hero-card p {
-    color: rgba(255,255,255,.78);
-    margin: 0;
-    max-width: 700px;
-    line-height: 1.7;
-    font-size: .95rem;
-}
-
-.hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .7rem;
-    margin-top: 1.35rem;
-}
-
-.nt-btn {
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: .55rem;
-    padding: .72rem 1rem;
-    border-radius: 16px;
-    border: 0;
-    font-size: .84rem;
-    font-weight: 900;
-    text-decoration: none;
-    transition: .2s ease;
-    white-space: nowrap;
-}
-
-.nt-btn:hover {
-    transform: translateY(-2px);
-}
-
-.btn-white {
-    background: white;
-    color: var(--blue-dark);
-    box-shadow: 0 14px 35px rgba(0,0,0,.13);
-}
-
-.btn-white:hover {
-    color: var(--blue-dark);
-}
-
-.btn-glass {
-    background: rgba(255,255,255,.12);
-    color: white;
-    border: 1px solid rgba(255,255,255,.22);
-    backdrop-filter: blur(10px);
-}
-
-.btn-glass:hover {
-    color: white;
-    background: rgba(255,255,255,.2);
-}
-
-.hero-stat {
-    position: relative;
-    z-index: 2;
-    background: rgba(255,255,255,.14);
-    border: 1px solid rgba(255,255,255,.2);
-    backdrop-filter: blur(16px);
-    border-radius: 28px;
-    padding: 1.2rem;
-}
-
-.hero-stat-label {
-    font-size: .7rem;
-    font-weight: 900;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,.68);
     margin-bottom: .45rem;
 }
 
-.hero-stat-value {
-    font-size: 2.25rem;
-    line-height: 1;
+.page-title {
+    margin: 0;
+    font-size: clamp(2rem, 3vw, 2.75rem);
+    line-height: 1.04;
     font-weight: 900;
-    letter-spacing: -.06em;
+    letter-spacing: -.055em;
 }
 
-.hero-stat-sub {
-    color: rgba(255,255,255,.7);
+.page-subtitle {
+    margin: .42rem 0 0;
+    color: var(--muted);
+    max-width: 620px;
+    font-size: .92rem;
+    line-height: 1.55;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .45rem;
+    padding: .62rem .95rem;
+    border-radius: 999px;
     font-size: .8rem;
-    margin-top: .3rem;
+    font-weight: 900;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: .18s ease;
+    white-space: nowrap;
 }
 
-.guide-grid {
+.action-btn:hover {
+    transform: translateY(-2px);
+}
+
+.action-btn.primary {
+    background: var(--blue);
+    color: #fff;
+    box-shadow: 0 12px 24px rgba(23,107,255,.20);
+}
+
+.action-btn.primary:hover {
+    background: var(--blue-dark);
+    color: #fff;
+}
+
+.action-btn.secondary {
+    background: rgba(255,255,255,.8);
+    color: var(--blue);
+    border-color: rgba(23,107,255,.16);
+}
+
+.action-btn.secondary:hover {
+    background: var(--blue-soft);
+    color: var(--blue);
+}
+
+.quick-panel {
     display: grid;
-    grid-template-columns: 1.2fr .8fr;
-    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, .34fr);
+    gap: .75rem;
+    align-items: start;
     margin-bottom: 1.2rem;
 }
 
-.guide-card,
-.unlock-card {
-    background: var(--card);
-    border: 1px solid rgba(23,107,255,.1);
-    box-shadow: var(--shadow-soft);
-    border-radius: 30px;
-    padding: 1.2rem;
-    backdrop-filter: blur(18px);
-}
-
-.guide-title {
-    font-size: .78rem;
-    font-weight: 900;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--blue);
-    margin-bottom: .8rem;
-}
-
-.step-list {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: .7rem;
-}
-
-.step-item {
-    border-radius: 22px;
-    padding: .9rem;
-    background: #F8FBFF;
-    border: 1px solid rgba(23,107,255,.08);
-}
-
-.step-num {
-    width: 30px;
-    height: 30px;
-    border-radius: 12px;
-    display: grid;
-    place-items: center;
-    background: var(--blue-soft);
-    color: var(--blue);
-    font-weight: 900;
-    font-size: .78rem;
-    margin-bottom: .55rem;
-}
-
-.step-item strong {
-    display: block;
-    color: var(--text);
-    font-size: .84rem;
-    font-weight: 900;
-    margin-bottom: .25rem;
-}
-
-.step-item span {
-    display: block;
-    color: var(--muted);
-    font-size: .74rem;
-    line-height: 1.45;
-}
-
-.unlock-top {
+.status-ribbon {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: .75rem;
-    margin-bottom: .8rem;
+    gap: .72rem;
+    flex-wrap: wrap;
+    min-height: 54px;
+    background: var(--surface);
+    border: 1px solid rgba(15,23,42,.07);
+    border-radius: 20px;
+    padding: .68rem .85rem;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(14px);
 }
 
-.unlock-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 18px;
-    display: grid;
-    place-items: center;
-    background: var(--blue-soft);
-    color: var(--blue);
-    font-size: 1.35rem;
+.ribbon-item {
+    display: flex;
+    align-items: baseline;
+    gap: .38rem;
+    white-space: nowrap;
 }
 
-.unlock-percent {
-    font-size: 1.6rem;
-    font-weight: 900;
-    color: var(--blue);
-    letter-spacing: -.05em;
-}
-
-.unlock-card h6 {
-    font-weight: 900;
-    margin-bottom: .35rem;
-}
-
-.unlock-card p {
+.ribbon-item span {
     color: var(--muted);
-    font-size: .84rem;
-    line-height: 1.6;
-    margin-bottom: .8rem;
+    font-size: .71rem;
+    font-weight: 800;
 }
 
-.progress-track {
-    height: 9px;
-    border-radius: 999px;
-    background: #E5EFFF;
+.ribbon-item strong {
+    color: var(--text);
+    font-size: .8rem;
+    font-weight: 900;
+}
+
+.ribbon-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(15,23,42,.18);
+}
+
+.guide-card {
+    background: var(--surface);
+    border: 1px solid rgba(15,23,42,.07);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(14px);
     overflow: hidden;
 }
 
-.progress-fill {
-    height: 100%;
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--blue), var(--cyan));
-    transition: .4s ease;
+.guide-summary {
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .7rem;
+    padding: .68rem .85rem;
+    cursor: pointer;
+    list-style: none;
+}
+
+.guide-summary::-webkit-details-marker {
+    display: none;
+}
+
+.guide-summary-main {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    color: var(--blue);
+}
+
+.guide-summary-main strong {
+    color: var(--text);
+    font-size: .82rem;
+    font-weight: 900;
+    white-space: nowrap;
+}
+
+.guide-summary-main span {
+    color: var(--muted);
+    font-size: .72rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.guide-chevron {
+    width: 32px;
+    height: 32px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    color: var(--blue);
+    background: var(--blue-soft);
+    transition: .18s ease;
+    flex: 0 0 auto;
+}
+
+details[open] .guide-chevron {
+    transform: rotate(180deg);
+}
+
+.guide-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .55rem;
+    padding: 0 .85rem .85rem;
+}
+
+.guide-step {
+    border-radius: 14px;
+    padding: .72rem;
+    background: #F8FBFF;
+    border: 1px solid rgba(15,23,42,.06);
+}
+
+.guide-step strong {
+    display: block;
+    color: var(--text);
+    font-size: .78rem;
+    font-weight: 900;
+    margin-bottom: .18rem;
+}
+
+.guide-step span {
+    display: block;
+    color: var(--muted);
+    font-size: .7rem;
+    line-height: 1.4;
 }
 
 .slot-section {
-    margin-bottom: 1.4rem;
+    margin-bottom: 1.55rem;
 }
 
 .slot-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: .8rem;
-    margin-bottom: .8rem;
+    gap: .85rem;
     flex-wrap: wrap;
+    margin-bottom: .72rem;
 }
 
 .slot-title {
@@ -338,154 +290,117 @@ body {
 }
 
 .slot-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 18px;
+    width: 40px;
+    height: 40px;
+    border-radius: 15px;
     display: grid;
     place-items: center;
-    font-size: 1.35rem;
+    font-size: 1.05rem;
+    color: var(--slot-color);
+    background: var(--slot-soft);
 }
 
 .slot-name {
     margin: 0;
     color: var(--text);
+    font-size: 1.08rem;
     font-weight: 900;
     letter-spacing: -.03em;
 }
 
 .slot-budget {
     color: var(--muted);
-    font-size: .82rem;
-    margin-top: .08rem;
-}
-
-.slot-tools {
-    display: flex;
-    align-items: center;
-    gap: .55rem;
+    font-size: .78rem;
+    font-weight: 700;
+    margin-top: .05rem;
 }
 
 .slot-refresh {
+    min-height: 38px;
     border: 0;
     border-radius: 999px;
-    background: var(--blue-soft);
+    background: rgba(255,255,255,.86);
     color: var(--blue);
-    padding: .52rem .85rem;
-    font-size: .78rem;
+    border: 1px solid rgba(23,107,255,.14);
+    padding: .48rem .82rem;
+    font-size: .76rem;
     font-weight: 900;
+    box-shadow: 0 8px 18px rgba(15,23,42,.04);
     transition: .18s ease;
 }
 
 .slot-refresh:hover {
+    background: var(--blue-soft);
     transform: translateY(-2px);
-    background: #DCEBFF;
 }
 
-.meal-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
+.meal-list {
+    display: flex;
+    flex-direction: column;
+    gap: .68rem;
 }
 
 .meal-card {
-    background: var(--card);
-    border: 1px solid rgba(23,107,255,.1);
-    border-radius: 30px;
-    box-shadow: var(--shadow-soft);
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, auto) minmax(245px, auto);
+    gap: 1rem;
+    align-items: center;
+    background: var(--surface-strong);
+    border: 1px solid rgba(15,23,42,.07);
+    border-radius: 20px;
+    padding: .9rem 1rem .9rem 1.1rem;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(14px);
+    transition: .18s ease;
     overflow: hidden;
-    backdrop-filter: blur(18px);
-    transition: .22s ease;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+}
+
+.meal-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 12px;
+    bottom: 12px;
+    width: 5px;
+    border-radius: 999px;
+    background: var(--slot-color);
 }
 
 .meal-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 24px 65px rgba(23,107,255,.13);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
 }
 
-.meal-cover {
-    min-height: 96px;
-    padding: 1rem;
-    color: white;
-    position: relative;
-    overflow: hidden;
+.meal-main {
+    min-width: 0;
+    padding-left: .12rem;
 }
 
-.meal-cover::after {
-    content: "";
-    position: absolute;
-    right: -55px;
-    top: -55px;
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    background: rgba(255,255,255,.16);
+.meal-meta {
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    flex-wrap: wrap;
+    margin-bottom: .38rem;
 }
 
-.cover-breakfast {
-    background: linear-gradient(135deg, #F97316, #EA580C);
-}
-
-.cover-lunch {
-    background: linear-gradient(135deg, #16A34A, #0F7A36);
-}
-
-.cover-dinner {
-    background: linear-gradient(135deg, #176BFF, #0B3D91);
-}
-
-.cover-snack {
-    background: linear-gradient(135deg, #7C3AED, #5B21B6);
-}
-
-.meal-cuisine {
-    position: relative;
-    z-index: 2;
+.cuisine-pill,
+.match-badge,
+.match-percent {
     display: inline-flex;
     align-items: center;
-    gap: .35rem;
+    gap: .32rem;
     padding: .25rem .55rem;
     border-radius: 999px;
-    background: rgba(255,255,255,.18);
-    font-size: .68rem;
+    font-size: .67rem;
     font-weight: 900;
 }
 
-.meal-name {
-    position: relative;
-    z-index: 2;
-    margin-top: 1rem;
-    font-size: 1.1rem;
-    line-height: 1.18;
-    font-weight: 900;
-    letter-spacing: -.03em;
-}
-
-.meal-body {
-    padding: 1rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.match-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: .6rem;
-    margin-bottom: .7rem;
-}
-
-.match-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: .35rem;
-    padding: .32rem .6rem;
-    border-radius: 999px;
-    font-size: .7rem;
-    font-weight: 900;
+.cuisine-pill {
+    background: #F8FBFF;
+    color: var(--muted);
+    border: 1px solid rgba(15,23,42,.07);
 }
 
 .match-high {
@@ -503,51 +418,65 @@ body {
     color: #64748B;
 }
 
+.match-percent {
+    background: rgba(15,23,42,.04);
+    color: var(--muted);
+}
+
+.meal-name {
+    margin: 0;
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 900;
+    line-height: 1.25;
+    letter-spacing: -.025em;
+}
+
 .meal-reason {
     color: var(--muted);
-    font-size: .82rem;
-    line-height: 1.55;
-    margin-bottom: .85rem;
+    font-size: .76rem;
+    line-height: 1.42;
+    margin-top: .34rem;
+    max-width: 720px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.macro-grid {
+.macro-strip {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: .45rem;
-    margin-top: auto;
+    grid-template-columns: repeat(4, 62px);
+    gap: .4rem;
 }
 
-.macro-box {
-    border-radius: 16px;
-    padding: .55rem .45rem;
+.macro-mini {
     text-align: center;
+    border-radius: 14px;
     background: #F8FBFF;
-    border: 1px solid rgba(23,107,255,.08);
+    border: 1px solid rgba(15,23,42,.06);
+    padding: .5rem .3rem;
 }
 
 .macro-value {
-    font-size: .83rem;
+    font-size: .76rem;
     font-weight: 900;
     line-height: 1;
 }
 
 .macro-label {
-    font-size: .58rem;
+    font-size: .53rem;
     color: var(--muted);
     font-weight: 800;
     text-transform: uppercase;
-    margin-top: .25rem;
+    margin-top: .22rem;
 }
 
-.meal-footer {
-    border-top: 1px solid rgba(23,107,255,.08);
-    padding: .9rem 1rem;
-    background: rgba(248,251,255,.7);
+.meal-actions {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: .7rem;
-    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: .65rem;
 }
 
 .star-wrap {
@@ -557,7 +486,7 @@ body {
 }
 
 .star-label {
-    font-size: .7rem;
+    font-size: .68rem;
     color: var(--muted);
     font-weight: 800;
 }
@@ -571,7 +500,7 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.05rem;
+    font-size: 1rem;
     color: #CBD5E1;
     padding: 1px 2px;
     line-height: 1;
@@ -585,27 +514,28 @@ body {
 }
 
 .save-btn {
+    min-height: 38px;
     border: 0;
     border-radius: 999px;
-    background: white;
-    color: var(--blue);
-    border: 1px solid rgba(23,107,255,.18);
-    padding: .45rem .75rem;
-    font-size: .76rem;
+    background: var(--blue);
+    color: white;
+    padding: .5rem .78rem;
+    font-size: .74rem;
     font-weight: 900;
     transition: .18s ease;
+    white-space: nowrap;
 }
 
 .save-btn:hover {
-    background: var(--blue-soft);
+    background: var(--blue-dark);
     transform: translateY(-2px);
 }
 
 .empty-slot {
-    background: rgba(255,255,255,.84);
-    border: 1px dashed rgba(23,107,255,.25);
-    border-radius: 28px;
-    padding: 2rem;
+    background: var(--surface-strong);
+    border: 1px dashed rgba(23,107,255,.22);
+    border-radius: 20px;
+    padding: 1.45rem;
     text-align: center;
     color: var(--muted);
 }
@@ -645,37 +575,81 @@ body {
 }
 
 @media (max-width: 1200px) {
-    .meal-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .step-list {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .guide-grid {
+    .quick-panel {
         grid-template-columns: 1fr;
+    }
+
+    .guide-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .meal-card {
+        grid-template-columns: minmax(0, 1fr);
+        align-items: stretch;
+    }
+
+    .macro-strip {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .meal-actions {
+        justify-content: space-between;
+        border-top: 1px solid rgba(15,23,42,.06);
+        padding-top: .7rem;
     }
 }
 
 @media (max-width: 768px) {
-    .hero-card {
-        border-radius: 28px;
+    .page-top-row {
+        align-items: flex-start;
     }
 
-    .hero-actions .nt-btn {
+    .header-actions {
         width: 100%;
     }
 
-    .meal-grid {
+    .action-btn {
+        width: 100%;
+    }
+
+    .status-ribbon {
+        border-radius: 18px;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: .45rem;
+    }
+
+    .ribbon-dot {
+        display: none;
+    }
+
+    .guide-summary-main {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: .15rem;
+    }
+
+    .guide-summary-main span {
+        white-space: normal;
+    }
+
+    .guide-content {
         grid-template-columns: 1fr;
     }
 
-    .step-list {
-        grid-template-columns: 1fr;
+    .slot-header {
+        align-items: flex-start;
     }
 
-    .meal-footer {
+    .slot-refresh {
+        width: 100%;
+    }
+
+    .macro-strip {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .meal-actions {
         align-items: flex-start;
         flex-direction: column;
     }
@@ -697,17 +671,24 @@ body {
     $recommendations = $recommendations ?? [];
 
     $slotIcons = [
-        'Breakfast' => '🌅',
-        'Lunch' => '☀️',
-        'Dinner' => '🌙',
-        'Snack' => '🍎',
+        'Breakfast' => 'bi-sunrise-fill',
+        'Lunch' => 'bi-brightness-high-fill',
+        'Dinner' => 'bi-moon-stars-fill',
+        'Snack' => 'bi-cup-hot-fill',
     ];
 
-    $slotClass = [
-        'Breakfast' => 'breakfast',
-        'Lunch' => 'lunch',
-        'Dinner' => 'dinner',
-        'Snack' => 'snack',
+    $slotColors = [
+        'Breakfast' => '#F97316',
+        'Lunch' => '#16A34A',
+        'Dinner' => '#176BFF',
+        'Snack' => '#7C3AED',
+    ];
+
+    $slotSofts = [
+        'Breakfast' => '#FFF4E8',
+        'Lunch' => '#EAFBF1',
+        'Dinner' => '#EAF2FF',
+        'Snack' => '#F3E8FF',
     ];
 
     $validCuisines = ['Malay', 'Chinese', 'Indian', 'Western', 'Middle Eastern'];
@@ -719,110 +700,101 @@ body {
 @section('content')
 <div id="toast-box"></div>
 
-<div class="hybrid-page">
+<div class="meal-options-page">
 
-    <div class="hero-card">
-        <div class="row align-items-center g-4">
-            <div class="col-12 col-lg-8">
-                <div class="hero-content">
-                    <div class="hero-kicker">
-                        <i class="bi bi-card-checklist"></i>
-                        Meal Options
-                    </div>
-
-                    <h1>Choose your meal options easily.</h1>
-
-                    <p>
-                        Meal Options gives you several suitable choices for each meal time. You can choose, rate,
-                        refresh, and save meals based on your calorie target, allergies, and cuisine preference.
-                    </p>
-
-                    <div class="hero-actions">
-                        <a href="{{ route('meals.hybrid-recommend', ['refresh' => now()->timestamp]) }}" class="nt-btn btn-white">
-                            <i class="bi bi-shuffle"></i>
-                            Get New Meal Options
-                        </a>
-
-                        <a href="{{ route('diary.index') }}" class="nt-btn btn-glass">
-                            <i class="bi bi-journal-check"></i>
-                            View My Meal Log
-                        </a>
-                    </div>
+    <div class="page-top">
+        <div class="page-top-row">
+            <div>
+                <div class="page-kicker">
+                    <i class="bi bi-card-checklist"></i>
+                    Meal Options
                 </div>
+
+                <h1 class="page-title">Choose meals for today.</h1>
+
+                <p class="page-subtitle">
+                    Review matched meals, save what you want, and rate options to improve future suggestions.
+                </p>
             </div>
 
-            <div class="col-12 col-lg-4">
-                <div class="hero-stat text-lg-end">
-                    <div class="hero-stat-label">Daily Target</div>
-                    <div class="hero-stat-value">{{ number_format($dcr) }}</div>
-                    <div class="hero-stat-sub">
-                        kcal/day · {{ $goalClean }} goal
-                    </div>
-                </div>
+            <div class="header-actions">
+                <a href="{{ route('meals.hybrid-recommend', ['refresh' => now()->timestamp]) }}" class="action-btn primary">
+                    <i class="bi bi-shuffle"></i>
+                    Refresh Options
+                </a>
+
+                <a href="{{ route('diary.index') }}" class="action-btn secondary">
+                    <i class="bi bi-journal-check"></i>
+                    View Meal Log
+                </a>
             </div>
         </div>
     </div>
 
-    <div class="guide-grid">
-        <div class="guide-card">
-            <div class="guide-title">
-                <i class="bi bi-info-circle-fill me-1"></i>
-                How to use this page
+    <div class="quick-panel">
+        <div class="status-ribbon">
+            <div class="ribbon-item">
+                <span>Daily Target</span>
+                <strong>{{ number_format($dcr) }} kcal</strong>
             </div>
 
-            <div class="step-list">
-                <div class="step-item">
-                    <div class="step-num">1</div>
-                    <strong>Check options</strong>
-                    <span>Each section shows meals for one meal time.</span>
-                </div>
+            <div class="ribbon-dot"></div>
 
-                <div class="step-item">
-                    <div class="step-num">2</div>
-                    <strong>Save meals</strong>
-                    <span>Click Add to Meal Log for meals you want to keep.</span>
-                </div>
+            <div class="ribbon-item">
+                <span>Goal</span>
+                <strong>{{ $goalClean }}</strong>
+            </div>
 
-                <div class="step-item">
-                    <div class="step-num">3</div>
-                    <strong>Rate meals</strong>
-                    <span>Ratings help NutriTrack learn your taste.</span>
-                </div>
+            <div class="ribbon-dot"></div>
 
-                <div class="step-item">
-                    <div class="step-num">4</div>
-                    <strong>Refresh slot</strong>
-                    <span>Refresh only breakfast, lunch, dinner, or snack.</span>
-                </div>
+            <div class="ribbon-item">
+                <span>Mode</span>
+                <strong>{{ $isCF ? 'Personalized' : 'Profile-based' }}</strong>
+            </div>
+
+            <div class="ribbon-dot"></div>
+
+            <div class="ribbon-item">
+                <span>Ratings</span>
+                <strong id="rating-progress-percent">{{ $progressPct }}%</strong>
             </div>
         </div>
 
-        <div class="unlock-card">
-            <div class="unlock-top">
-                <div class="unlock-icon">
-                    <i class="bi {{ $isCF ? 'bi-people-fill' : 'bi-person-check-fill' }}"></i>
+        <details class="guide-card">
+            <summary class="guide-summary">
+                <div class="guide-summary-main">
+                    <i class="bi bi-info-circle-fill"></i>
+                    <strong>How this works</strong>
+                    <span>Open quick guide</span>
                 </div>
 
-                <div class="unlock-percent">{{ $progressPct }}%</div>
-            </div>
+                <div class="guide-chevron">
+                    <i class="bi bi-chevron-down"></i>
+                </div>
+            </summary>
 
-            @if($isCF)
-                <h6>Rating-supported mode active</h6>
-                <p>
-                    Your meal ratings are now used together with profile-based matching to improve your Meal Options.
-                </p>
-            @else
-                <h6>Profile-based mode active</h6>
-                <p>
-                    Rate <strong>{{ $remaining }}</strong> more meal{{ $remaining !== 1 ? 's' : '' }}
-                    to unlock rating-supported Meal Options improvement.
-                </p>
-            @endif
+            <div class="guide-content">
+                <div class="guide-step">
+                    <strong>Choose</strong>
+                    <span>Check meals by time.</span>
+                </div>
 
-            <div class="progress-track">
-                <div class="progress-fill" id="cf-progress-fill" style="width: {{ $progressPct }}%;"></div>
+                <div class="guide-step">
+                    <strong>Save</strong>
+                    <span>Add meals to your Meal Log.</span>
+                </div>
+
+                <div class="guide-step">
+                    <strong>Rate</strong>
+                    <span>Help improve suggestions.</span>
+                </div>
+
+                <div class="guide-step">
+                    <strong>Refresh</strong>
+                    <span>Get another set of options.</span>
+                </div>
             </div>
-        </div>
+        </details>
     </div>
 
     @forelse($recommendations as $slot => $result)
@@ -830,37 +802,36 @@ body {
             $slotMeals = $result['meals'] ?? collect();
             $budget = $result['slot_budget'] ?? 0;
             $method = $result['method'] ?? 'profile-based';
-            $slotSuffix = $slotClass[$slot] ?? 'breakfast';
-            $slotIcon = $slotIcons[$slot] ?? '🍽️';
+            $slotIcon = $slotIcons[$slot] ?? 'bi-egg-fried';
+            $slotColor = $slotColors[$slot] ?? '#176BFF';
+            $slotSoft = $slotSofts[$slot] ?? '#EAF2FF';
         @endphp
 
-        <section class="slot-section" id="slot-{{ strtolower($slot) }}">
+        <section class="slot-section" id="slot-{{ strtolower($slot) }}" style="--slot-color: {{ $slotColor }}; --slot-soft: {{ $slotSoft }};">
             <div class="slot-header">
                 <div class="slot-title">
-                    <div class="slot-icon" style="background: var(--{{ $slotSuffix === 'breakfast' ? 'orange' : ($slotSuffix === 'lunch' ? 'green' : ($slotSuffix === 'dinner' ? 'blue' : 'purple')) }}-soft);">
-                        {{ $slotIcon }}
+                    <div class="slot-icon">
+                        <i class="bi {{ $slotIcon }}"></i>
                     </div>
 
                     <div>
                         <h4 class="slot-name">{{ $slot }}</h4>
                         <div class="slot-budget">
-                            {{ number_format($budget) }} kcal target · {{ $method === 'rating-supported' ? 'Rating-supported matching' : 'Profile-based matching' }}
+                            {{ number_format($budget) }} kcal target · {{ $method === 'rating-supported' ? 'Personalized matching' : 'Profile-based matching' }}
                         </div>
                     </div>
                 </div>
 
-                <div class="slot-tools">
-                    <button type="button"
-                            class="slot-refresh"
-                            id="refresh-{{ strtolower($slot) }}"
-                            onclick="refreshSlot('{{ $slot }}')">
-                        <i class="bi bi-arrow-clockwise"></i>
-                        Refresh {{ $slot }}
-                    </button>
-                </div>
+                <button type="button"
+                        class="slot-refresh"
+                        id="refresh-{{ strtolower($slot) }}"
+                        onclick="refreshSlot('{{ $slot }}')">
+                    <i class="bi bi-arrow-clockwise"></i>
+                    Refresh {{ $slot }}
+                </button>
             </div>
 
-            <div class="meal-grid" id="meals-{{ strtolower($slot) }}">
+            <div class="meal-list" id="meals-{{ strtolower($slot) }}">
                 @forelse($slotMeals as $meal)
                     @php
                         $mealId = $meal->meal_id ?? 0;
@@ -873,6 +844,8 @@ body {
                         $cuisineDisplay = in_array($cuisine, $validCuisines) ? $cuisine : ($cuisine ?: 'Mixed');
                         $score = $meal->recommendation_score ?? 0;
                         $reason = $meal->recommendation_reason ?? 'Recommended as a suitable option for this meal time.';
+                        $displayReason = trim((string) preg_replace('/^Recommended because\s+/i', '', $reason));
+                        $displayReason = $displayReason ?: 'Suitable for this meal time.';
                         $matchPct = min(100, (int) round(($score / 85) * 100));
                         $matchClass = $matchPct >= 70 ? 'match-high' : ($matchPct >= 40 ? 'match-medium' : 'match-low');
                         $matchLabel = $matchPct >= 70 ? 'Best fit' : ($matchPct >= 40 ? 'Good fit' : 'Fair fit');
@@ -887,56 +860,53 @@ body {
                     @endphp
 
                     <article class="meal-card" data-meal-id="{{ $mealId }}">
-                        <div class="meal-cover cover-{{ $slotSuffix }}">
-                            <div class="meal-cuisine">
-                                <i class="bi bi-geo-alt-fill"></i>
-                                {{ $cuisineDisplay }}
-                            </div>
+                        <div class="meal-main">
+                            <div class="meal-meta">
+                                <span class="cuisine-pill">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    {{ $cuisineDisplay }}
+                                </span>
 
-                            <div class="meal-name">{{ $mealName }}</div>
-                        </div>
-
-                        <div class="meal-body">
-                            <div class="match-row">
                                 <span class="match-badge {{ $matchClass }}">
                                     <i class="bi bi-check-circle-fill"></i>
                                     {{ $matchLabel }}
                                 </span>
 
-                                <span style="font-size:.72rem;color:var(--muted);font-weight:800;">
+                                <span class="match-percent">
                                     {{ $matchPct }}% match
                                 </span>
                             </div>
 
+                            <h5 class="meal-name">{{ $mealName }}</h5>
+
                             <div class="meal-reason">
-                                <i class="bi bi-lightbulb-fill" style="color:#F9A825;"></i>
-                                {{ $reason }}
-                            </div>
-
-                            <div class="macro-grid">
-                                <div class="macro-box">
-                                    <div class="macro-value" style="color:var(--blue);">{{ number_format($calories) }}</div>
-                                    <div class="macro-label">kcal</div>
-                                </div>
-
-                                <div class="macro-box">
-                                    <div class="macro-value" style="color:var(--purple);">{{ number_format($protein, 1) }}g</div>
-                                    <div class="macro-label">Protein</div>
-                                </div>
-
-                                <div class="macro-box">
-                                    <div class="macro-value" style="color:var(--orange);">{{ number_format($carbs, 1) }}g</div>
-                                    <div class="macro-label">Carbs</div>
-                                </div>
-
-                                <div class="macro-box">
-                                    <div class="macro-value" style="color:#9333EA;">{{ number_format($fat, 1) }}g</div>
-                                    <div class="macro-label">Fat</div>
-                                </div>
+                                {{ $displayReason }}
                             </div>
                         </div>
 
-                        <div class="meal-footer">
+                        <div class="macro-strip">
+                            <div class="macro-mini">
+                                <div class="macro-value" style="color:var(--blue);">{{ number_format($calories) }}</div>
+                                <div class="macro-label">kcal</div>
+                            </div>
+
+                            <div class="macro-mini">
+                                <div class="macro-value" style="color:var(--purple);">{{ number_format($protein, 1) }}g</div>
+                                <div class="macro-label">Protein</div>
+                            </div>
+
+                            <div class="macro-mini">
+                                <div class="macro-value" style="color:var(--orange);">{{ number_format($carbs, 1) }}g</div>
+                                <div class="macro-label">Carbs</div>
+                            </div>
+
+                            <div class="macro-mini">
+                                <div class="macro-value" style="color:#9333EA;">{{ number_format($fat, 1) }}g</div>
+                                <div class="macro-label">Fat</div>
+                            </div>
+                        </div>
+
+                        <div class="meal-actions">
                             <div class="star-wrap">
                                 <span class="star-label">Rate</span>
 
@@ -976,7 +946,7 @@ body {
             <strong>No Meal Options generated yet.</strong>
             <p class="mb-3 mt-1">Complete your health profile, then refresh this page.</p>
 
-            <a href="{{ route('meals.hybrid-recommend', ['refresh' => now()->timestamp]) }}" class="nt-btn btn-white" style="background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:white;">
+            <a href="{{ route('meals.hybrid-recommend', ['refresh' => now()->timestamp]) }}" class="action-btn primary">
                 <i class="bi bi-arrow-clockwise"></i>
                 Try Again
             </a>
@@ -1041,7 +1011,6 @@ async function saveMeal(mealId, slot, btn) {
             btn.innerHTML = '<i class="bi bi-check-circle-fill"></i> Added';
             btn.style.background = 'var(--green-soft)';
             btn.style.color = 'var(--green)';
-            btn.style.borderColor = 'rgba(22,163,74,.25)';
             showToast(data.message ?? 'Meal added to Meal Log.');
         } else {
             btn.disabled = false;
@@ -1112,16 +1081,17 @@ async function submitRating(mealId, stars, clickedBtn) {
         const data = await res.json();
 
         if (data.success) {
-            const fill = document.getElementById('cf-progress-fill');
+            const percentBox = document.getElementById('rating-progress-percent');
 
-            if (fill && data.rating_count !== undefined) {
-                fill.style.width = Math.min(100, Math.round((data.rating_count / 5) * 100)) + '%';
+            if (percentBox && data.rating_count !== undefined) {
+                const newPct = Math.min(100, Math.round((data.rating_count / 5) * 100));
+                percentBox.textContent = `${newPct}%`;
             }
 
             showToast(data.message ?? `Rated ${stars} star${stars !== 1 ? 's' : ''}.`);
 
             if (data.cf_unlocked) {
-                showToast('Rating-supported mode unlocked. Refreshing...');
+                showToast('Personalized matching unlocked. Refreshing...');
                 setTimeout(() => location.reload(), 1500);
             }
         } else {
