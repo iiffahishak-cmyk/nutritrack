@@ -12,7 +12,6 @@ use App\Http\Controllers\MealLogController;
 use App\Http\Controllers\DiaryController;
 use App\Http\Controllers\GuestQuizController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\RecommendationTestController;
 
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
@@ -101,9 +100,6 @@ Route::middleware(['auth', 'admin'])
 
         Route::post('/meals/{meal}/fetch-image', [\App\Http\Controllers\Admin\MealController::class, 'fetchImage'])
     ->name('meals.fetch-image');
-    
-Route::match(['get', 'post'], '/recommendation-test', [RecommendationTestController::class, 'index'])
-    ->name('recommendation-test.index');
     
         Route::resource('meals', AdminMealController::class)
             ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
