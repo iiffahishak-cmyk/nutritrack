@@ -1,0 +1,257 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class MalayMealSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $meals = [
+            // Breakfast
+            [
+                'meal_name' => 'Nasi Lemak with Boiled Egg',
+                'description' => 'Coconut rice served with sambal, boiled egg, cucumber, and anchovies.',
+                'calories' => 450,
+                'protein' => 14,
+                'carbs' => 58,
+                'fat' => 18,
+                'meal_time' => 'Breakfast',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'rice, coconut milk, sambal, egg, cucumber, anchovies',
+            ],
+            [
+                'meal_name' => 'Bubur Ayam',
+                'description' => 'Malay-style chicken rice porridge with shredded chicken and herbs.',
+                'calories' => 320,
+                'protein' => 18,
+                'carbs' => 42,
+                'fat' => 8,
+                'meal_time' => 'Breakfast',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'rice, chicken, ginger, spring onion, fried shallots',
+            ],
+            [
+                'meal_name' => 'Roti Canai with Dhal',
+                'description' => 'Flatbread served with dhal curry.',
+                'calories' => 420,
+                'protein' => 11,
+                'carbs' => 55,
+                'fat' => 17,
+                'meal_time' => 'Breakfast',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'flour, dhal, curry spices, oil',
+            ],
+            [
+                'meal_name' => 'Lontong Sayur',
+                'description' => 'Compressed rice cakes with vegetables in coconut gravy.',
+                'calories' => 430,
+                'protein' => 12,
+                'carbs' => 50,
+                'fat' => 20,
+                'meal_time' => 'Breakfast',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'rice cake, coconut milk, cabbage, carrot, tofu, tempeh',
+            ],
+            [
+                'meal_name' => 'Mee Rebus Light',
+                'description' => 'Yellow noodles in sweet potato gravy with egg and tofu.',
+                'calories' => 460,
+                'protein' => 16,
+                'carbs' => 68,
+                'fat' => 13,
+                'meal_time' => 'Breakfast',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'yellow noodles, sweet potato, egg, tofu, bean sprouts',
+            ],
+
+            // Lunch
+            [
+                'meal_name' => 'Nasi Kerabu with Grilled Chicken',
+                'description' => 'Blue rice served with herbs, vegetables, sambal, and grilled chicken.',
+                'calories' => 560,
+                'protein' => 32,
+                'carbs' => 62,
+                'fat' => 18,
+                'meal_time' => 'Lunch',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'rice, chicken, herbs, cucumber, bean sprouts, sambal',
+            ],
+            [
+                'meal_name' => 'Ikan Bakar with Rice',
+                'description' => 'Grilled fish served with white rice, sambal, and vegetables.',
+                'calories' => 520,
+                'protein' => 35,
+                'carbs' => 55,
+                'fat' => 14,
+                'meal_time' => 'Lunch',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'fish, rice, sambal, cucumber, long beans',
+            ],
+            [
+                'meal_name' => 'Ayam Masak Merah with Rice',
+                'description' => 'Chicken cooked in tomato chili sauce with steamed rice.',
+                'calories' => 610,
+                'protein' => 30,
+                'carbs' => 65,
+                'fat' => 24,
+                'meal_time' => 'Lunch',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'chicken, tomato sauce, chili, onion, rice',
+            ],
+            [
+                'meal_name' => 'Asam Pedas Fish with Rice',
+                'description' => 'Spicy sour fish stew served with rice and vegetables.',
+                'calories' => 500,
+                'protein' => 31,
+                'carbs' => 58,
+                'fat' => 12,
+                'meal_time' => 'Lunch',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'fish, tamarind, chili, okra, tomato, rice',
+            ],
+            [
+                'meal_name' => 'Sambal Tempeh Rice Bowl',
+                'description' => 'Rice bowl with tempeh, sambal, cucumber, and vegetables.',
+                'calories' => 540,
+                'protein' => 22,
+                'carbs' => 70,
+                'fat' => 18,
+                'meal_time' => 'Lunch',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'rice, tempeh, sambal, cucumber, long beans',
+            ],
+
+            // Dinner
+            [
+                'meal_name' => 'Sup Ayam with Rice',
+                'description' => 'Clear chicken soup with potatoes, carrots, and steamed rice.',
+                'calories' => 480,
+                'protein' => 28,
+                'carbs' => 55,
+                'fat' => 12,
+                'meal_time' => 'Dinner',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'chicken, rice, potato, carrot, celery, soup spices',
+            ],
+            [
+                'meal_name' => 'Singgang Ikan with Rice',
+                'description' => 'Light Kelantan-style fish soup served with rice.',
+                'calories' => 430,
+                'protein' => 30,
+                'carbs' => 52,
+                'fat' => 8,
+                'meal_time' => 'Dinner',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'fish, rice, turmeric, galangal, tamarind, chili',
+            ],
+            [
+                'meal_name' => 'Ayam Percik with Rice',
+                'description' => 'Grilled chicken with coconut spice sauce served with rice.',
+                'calories' => 620,
+                'protein' => 34,
+                'carbs' => 60,
+                'fat' => 25,
+                'meal_time' => 'Dinner',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'chicken, coconut milk, rice, lemongrass, chili',
+            ],
+            [
+                'meal_name' => 'Daging Masak Kicap with Rice',
+                'description' => 'Beef cooked in soy sauce gravy with rice and vegetables.',
+                'calories' => 600,
+                'protein' => 32,
+                'carbs' => 62,
+                'fat' => 22,
+                'meal_time' => 'Dinner',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'beef, soy sauce, onion, rice, vegetables',
+            ],
+            [
+                'meal_name' => 'Ulam Rice with Grilled Fish',
+                'description' => 'Steamed rice with raw herbs, sambal, and grilled fish.',
+                'calories' => 500,
+                'protein' => 33,
+                'carbs' => 57,
+                'fat' => 13,
+                'meal_time' => 'Dinner',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'rice, fish, ulam, sambal, cucumber',
+            ],
+
+            // Snack
+            [
+                'meal_name' => 'Kuih Seri Muka',
+                'description' => 'Traditional layered glutinous rice and pandan custard kuih.',
+                'calories' => 210,
+                'protein' => 4,
+                'carbs' => 36,
+                'fat' => 6,
+                'meal_time' => 'Snack',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'glutinous rice, coconut milk, pandan, egg, sugar',
+            ],
+            [
+                'meal_name' => 'Kuih Ketayap',
+                'description' => 'Pandan crepe filled with sweet grated coconut.',
+                'calories' => 180,
+                'protein' => 3,
+                'carbs' => 30,
+                'fat' => 5,
+                'meal_time' => 'Snack',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'flour, pandan, coconut, palm sugar',
+            ],
+            [
+                'meal_name' => 'Boiled Sweet Potato',
+                'description' => 'Simple boiled sweet potato suitable as a filling snack.',
+                'calories' => 160,
+                'protein' => 3,
+                'carbs' => 37,
+                'fat' => 0.5,
+                'meal_time' => 'Snack',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'sweet potato',
+            ],
+            [
+                'meal_name' => 'Pisang Rebus',
+                'description' => 'Boiled banana served as a traditional light snack.',
+                'calories' => 140,
+                'protein' => 1.5,
+                'carbs' => 34,
+                'fat' => 0.3,
+                'meal_time' => 'Snack',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'banana',
+            ],
+            [
+                'meal_name' => 'Popiah Basah',
+                'description' => 'Fresh spring roll with vegetables and light sauce.',
+                'calories' => 220,
+                'protein' => 7,
+                'carbs' => 34,
+                'fat' => 6,
+                'meal_time' => 'Snack',
+                'cuisine_type' => 'Malay',
+                'ingredients' => 'popiah skin, turnip, carrot, bean sprouts, sauce',
+            ],
+        ];
+
+        foreach ($meals as $meal) {
+            DB::table('meals')->updateOrInsert(
+                [
+                    'meal_name' => $meal['meal_name'],
+                    'meal_time' => $meal['meal_time'],
+                ],
+                array_merge($meal, [
+                    'image_url' => null,
+                    'source' => 'manual',
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ])
+            );
+        }
+    }
+}
