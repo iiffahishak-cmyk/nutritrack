@@ -4,8 +4,8 @@
 //  app/Http/Controllers/FoodLoggerController.php
 //
 //  NutriTrack AI Food Logger
-//  - Analyze food description using Gemini first
-//  - Fallback to OpenRouter if Gemini fails
+//  - Analyze food description using OpenRouter first when available
+//  - Fallback to Gemini if backup AI is unavailable
 //  - Save AI-estimated meals to meal_logs
 //  - Adds healthiness estimate for every AI-analyzed food
 // ============================================================
@@ -59,25 +59,31 @@ class FoodLoggerController extends Controller
         $error = null;
         $usedApi = null;
 
-        // Try Gemini first
-        if (! empty($geminiKey)) {
-            [$result, $error] = $this->callGemini($geminiKey, $prompt);
+        if (empty($geminiKey) && empty($openrouterKey)) {
+            return back()->withInput()->withErrors([
+                'api' => 'AI key is missing. Add GEMINI_API_KEY or OPENROUTER_API_KEY in Railway Variables.',
+            ]);
+        }
+
+        // Try OpenRouter first when configured to avoid Gemini quota limits during demos.
+        if (! empty($openrouterKey)) {
+            [$result, $error] = $this->callOpenRouter($openrouterKey, $prompt);
 
             if ($result) {
-                $usedApi = 'Gemini';
+                $usedApi = 'OpenRouter';
             } else {
-                Log::warning('Gemini failed, trying fallback', [
+                Log::warning('OpenRouter failed, trying Gemini fallback', [
                     'error' => $error,
                 ]);
             }
         }
 
-        // Try OpenRouter fallback
-        if (! $result && ! empty($openrouterKey)) {
-            [$result, $error] = $this->callOpenRouter($openrouterKey, $prompt);
+        // Try Gemini fallback.
+        if (! $result && ! empty($geminiKey)) {
+            [$result, $error] = $this->callGemini($geminiKey, $prompt);
 
             if ($result) {
-                $usedApi = 'OpenRouter';
+                $usedApi = 'Gemini';
             }
         }
 
@@ -162,7 +168,7 @@ class FoodLoggerController extends Controller
                 ]);
 
             if ($response->status() === 429) {
-                return [null, 'Gemini rate limit reached. Trying backup AI.'];
+                return [null, 'AI quota is currently full. Please try again later or use the backup AI key.'];
             }
 
             if ($response->failed()) {
@@ -202,6 +208,10 @@ class FoodLoggerController extends Controller
                     'max_tokens' => 800,
                     'temperature' => 0.1,
                 ]);
+
+            if ($response->status() === 429) {
+                return [null, 'Backup AI quota is currently full. Please try again later.'];
+            }
 
             if ($response->failed()) {
                 return [null, "OpenRouter error HTTP {$response->status()}."];

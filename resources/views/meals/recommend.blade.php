@@ -279,6 +279,10 @@ body {
     line-height: 1.6;
     min-height: 42px;
     margin-bottom: .85rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .macro-grid {
@@ -362,30 +366,6 @@ body {
     border-radius: 18px;
     background: #F8FBFF;
     padding: .75rem .5rem;
-}
-
-.grocery-list {
-    max-height: 340px;
-    overflow-y: auto;
-    padding-right: .25rem;
-}
-
-.grocery-item {
-    display: flex;
-    align-items: center;
-    gap: .65rem;
-    padding: .75rem;
-    border-radius: 18px;
-    background: #F8FBFF;
-    border: 1px solid rgba(23,107,255,.07);
-    margin-bottom: .55rem;
-}
-
-.grocery-item label {
-    color: var(--text);
-    font-size: .86rem;
-    font-weight: 800;
-    cursor: pointer;
 }
 
 .progress-box {
@@ -550,8 +530,20 @@ body {
                             </div>
 
                             <div class="meal-body">
+                                @php
+                                    $displayDescription = html_entity_decode(strip_tags($meal->description ?? ''), ENT_QUOTES, 'UTF-8');
+                                    $displayDescription = preg_replace('/\s+/', ' ', $displayDescription);
+                                    $displayDescription = preg_replace('/\b(It is brought to you by|Similar recipes include|From preparation to the plate|Overall, this recipe|For \$).*$/i', '', $displayDescription);
+
+                                    $isGenericRecipeText = preg_match('/\b(might be just|searching for|one serving contains|daily requirements|spoonacular|Foodista|recipe serves|expensive recipe)\b/i', $displayDescription);
+
+                                    $displayDescription = trim(preg_split('/(?<=[.!?])\s+/', trim($displayDescription))[0] ?? '');
+                                    $displayDescription = $isGenericRecipeText ? '' : $displayDescription;
+                                    $displayDescription = \Illuminate\Support\Str::limit($displayDescription ?: 'A balanced meal option for your daily plan.', 115);
+                                @endphp
+
                                 <div class="meal-description">
-                                    {{ $meal->description ?? 'Balanced meal selected based on your calorie target and nutrition profile.' }}
+                                    {{ $displayDescription }}
                                 </div>
 
                                 <div class="macro-grid">
@@ -626,34 +618,6 @@ body {
                 </div>
             </div>
 
-            <div class="side-card">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h6 class="side-title mb-0">
-                        <i class="bi bi-basket2-fill text-primary me-2"></i>
-                        Grocery List
-                    </h6>
-
-                    <button onclick="printGroceryList()" class="btn btn-sm btn-light border rounded-pill">
-                        <i class="bi bi-printer text-primary"></i>
-                    </button>
-                </div>
-
-                @if(count($groceryList) > 0)
-                    <div class="grocery-list" id="grocery-list-content">
-                        @foreach($groceryList as $item)
-                            <div class="grocery-item">
-                                <input type="checkbox" class="form-check-input mt-0" onchange="strikeItem(this)">
-                                <label>{{ $item }}</label>
-                            </div>
-                        @endforeach
-                    </div>
-                @else
-                    <div class="text-center py-4 text-muted">
-                        <i class="bi bi-cart-x fs-2 d-block mb-2"></i>
-                        <p class="small mb-0">No grocery items found.</p>
-                    </div>
-                @endif
-            </div>
         </div>
     </div>
 </div>
@@ -707,38 +671,6 @@ function showToast(message) {
     setTimeout(() => {
         box.innerHTML = '';
     }, 3000);
-}
-
-function strikeItem(checkbox) {
-    const label = checkbox.nextElementSibling;
-    label.style.textDecoration = checkbox.checked ? 'line-through' : 'none';
-    label.style.opacity = checkbox.checked ? '.5' : '1';
-}
-
-function printGroceryList() {
-    const items = document.querySelectorAll('#grocery-list-content label');
-
-    let list = '';
-
-    items.forEach(item => {
-        list += `<li style="margin-bottom:8px;">${item.textContent}</li>`;
-    });
-
-    const win = window.open('', '_blank');
-
-    win.document.write(`
-        <html>
-            <body style="font-family:sans-serif;padding:40px;">
-                <h2>NutriTrack Grocery List</h2>
-                <p>Generated on {{ now()->format('d M Y') }}</p>
-                <hr>
-                <ul>${list}</ul>
-            </body>
-        </html>
-    `);
-
-    win.print();
-    win.close();
 }
 
 function saveRecommendedMeal(mealId, mealTime, btn) {
