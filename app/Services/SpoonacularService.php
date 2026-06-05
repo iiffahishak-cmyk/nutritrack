@@ -61,6 +61,14 @@ class SpoonacularService
         'Any'       => '',
     ];
 
+    private const NUTRITRACK_CUISINES = [
+        'Malay',
+        'Chinese',
+        'Indian',
+        'Western',
+        'Middle Eastern',
+    ];
+
     // ── Constructor: inject API key from config ────────────────────────────
     private string $apiKey;
 
@@ -371,7 +379,7 @@ public function __construct(?string $apiKey = null)
 
             // Classification
             'meal_time'         => $mealTime,
-            'cuisine_type'      => $cuisine ?: 'International',
+            'cuisine_type'      => $this->normalizeNutriTrackCuisine($cuisine),
             'dish_types'        => $parsed['dish_types'],  // cast to array, stored as JSON
             'diets'             => $parsed['diets'],
             'ingredients'       => $parsed['ingredients'],
@@ -472,6 +480,26 @@ public function __construct(?string $apiKey = null)
     // =====================================================================
     //  HELPERS
     // =====================================================================
+
+    /**
+     * Keep stored cuisine values inside NutriTrack's official categories.
+     */
+    private function normalizeNutriTrackCuisine(?string $cuisine): ?string
+    {
+        $cuisine = trim((string) $cuisine);
+
+        if ($cuisine === '' || strtolower($cuisine) === 'international') {
+            return null;
+        }
+
+        foreach (self::NUTRITRACK_CUISINES as $validCuisine) {
+            if (strcasecmp($cuisine, $validCuisine) === 0) {
+                return $validCuisine;
+            }
+        }
+
+        return null;
+    }
 
     /**
      * Map NutriTrack cuisine names to Spoonacular cuisine query values.
