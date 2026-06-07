@@ -264,11 +264,15 @@
 
 <body>
 
+@php
+    $isPublicPage = request()->routeIs('home') || request()->routeIs('guest.*');
+@endphp
+
 {{-- NAVBAR --}}
 <nav class="navbar navbar-expand-lg navbar-nutritrack fixed-top">
     <div class="container">
 
-        <a class="brand-shell" href="{{ route('dashboard') }}">
+        <a class="brand-shell" href="{{ $isPublicPage ? route('home') : route('dashboard') }}">
             <span class="brand-mark">
                 <i class="bi bi-heart-pulse-fill"></i>
             </span>
@@ -287,7 +291,7 @@
 
         <div class="collapse navbar-collapse" id="topNavBar">
 
-            @auth
+            @if(Auth::check() && ! $isPublicPage)
                 <div class="navbar-nav mx-lg-auto mt-3 mt-lg-0">
                     <div class="nav-center">
 
@@ -343,11 +347,19 @@
 
                     </div>
                 </div>
-            @endauth
+            @endif
 
             <div class="d-flex align-items-center gap-2 ms-lg-auto mt-3 mt-lg-0">
 
-                @auth
+                @if($isPublicPage)
+                    <a href="{{ route('login') }}" class="btn-login">
+                        Login
+                    </a>
+
+                    <a href="{{ route('register') }}" class="btn-register-smart">
+                        Get Started
+                    </a>
+                @elseif(Auth::check())
                     <div class="dropdown w-100 w-lg-auto">
 
                         <div class="profile-trigger"
@@ -431,7 +443,7 @@
                     <a href="{{ route('register') }}" class="btn-register-smart">
                         Get Started
                     </a>
-                @endauth
+                @endif
 
             </div>
         </div>
