@@ -303,10 +303,10 @@
                             Daily Plan
                         </a>
 
-                        <a href="{{ route('meals.hybrid-recommend') }}"
-                           class="nav-link-custom {{ request()->routeIs('meals.hybrid-recommend') ? 'active' : '' }}">
-                            <i class="bi bi-stars"></i>
-                            Meal Options
+                        <a href="{{ route('food-logger.index') }}"
+                           class="nav-link-custom {{ request()->routeIs('food-logger.*') ? 'active' : '' }}">
+                            <i class="bi bi-robot"></i>
+                            AI Logger
                         </a>
 
                         <a href="{{ route('meals.weekly') }}"
@@ -315,10 +315,10 @@
                             Weekly Plan
                         </a>
 
-                        <a href="{{ route('food-logger.index') }}"
-                           class="nav-link-custom {{ request()->routeIs('food-logger.*') ? 'active' : '' }}">
-                            <i class="bi bi-robot"></i>
-                            AI Logger
+                        <a href="{{ route('meals.hybrid-recommend') }}"
+                           class="nav-link-custom {{ request()->routeIs('meals.hybrid-recommend') ? 'active' : '' }}">
+                            <i class="bi bi-stars"></i>
+                            Meal Options
                         </a>
 
                         <a href="{{ route('diary.index') }}"

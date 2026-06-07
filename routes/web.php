@@ -26,7 +26,7 @@ use App\Http\Controllers\Admin\MealController;
 // ─────────────────────────────────────────────────────────
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/quiz', [GuestQuizController::class, 'showQuiz'])->name('guest.quiz');
 Route::post('/quiz/calculate', [GuestQuizController::class, 'calculate'])->name('guest.calculate');
