@@ -3,38 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NutriTrack — Personalized Healthy Meal Recommendations</title>
+    <title>NutriTrack - Personalized Healthy Meal Recommendations</title>
 
-    {{-- Bootstrap 5 + Icons --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    {{-- Google Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --dark: #08110C;
-            --dark-2: #0D1D14;
-            --green: #35D07F;
-            --green-2: #A7F35B;
-            --mint: #DFFFEA;
-            --cream: #FFF8E8;
-            --orange: #FFB347;
-            --blue: #7DD3FC;
-            --text: #1D2939;
-            --muted: #667085;
-            --white: #FFFFFF;
-            --line: rgba(255,255,255,.14);
-            --shadow: 0 30px 90px rgba(8,17,12,.22);
+            --cream: #FAF2E3;
+            --cream-2: #FFF9EF;
+            --paper: #FFFCF6;
+            --off-white: #F7F3EA;
+            --sage: #E2ECD7;
+            --sage-2: #CFE2BE;
+            --green: #32684B;
+            --green-dark: #1F4632;
+            --terracotta: #C56C45;
+            --terracotta-dark: #94482E;
+            --navy: #172033;
+            --ink: #1F2933;
+            --muted: #697064;
+            --line: rgba(31,41,51,.12);
+            --shadow: 0 24px 70px rgba(23,32,51,.12);
         }
 
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         html {
@@ -42,9 +40,14 @@
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: #FBFFF8;
-            color: var(--text);
+            margin: 0;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            color: var(--ink);
+            background:
+                linear-gradient(90deg, rgba(31,41,51,.035) 1px, transparent 1px),
+                linear-gradient(rgba(31,41,51,.03) 1px, transparent 1px),
+                var(--cream);
+            background-size: 72px 72px;
             overflow-x: hidden;
         }
 
@@ -52,761 +55,700 @@
             text-decoration: none;
         }
 
-        /* =======================
-           PREMIUM BACKGROUND
-        ======================= */
-        .site-bg {
-            position: fixed;
-            inset: 0;
-            z-index: -5;
-            background:
-                radial-gradient(circle at 10% 15%, rgba(53,208,127,.18), transparent 26%),
-                radial-gradient(circle at 88% 8%, rgba(255,179,71,.16), transparent 28%),
-                radial-gradient(circle at 72% 88%, rgba(125,211,252,.16), transparent 30%),
-                linear-gradient(180deg, #FBFFF8 0%, #F4FFF7 48%, #FFFDF6 100%);
+        img {
+            max-width: 100%;
         }
 
-        .floating-noise {
-            position: fixed;
-            inset: 0;
-            z-index: -4;
-            opacity: .5;
-            background-image:
-                linear-gradient(rgba(8,17,12,.035) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(8,17,12,.035) 1px, transparent 1px);
-            background-size: 70px 70px;
-            mask-image: linear-gradient(to bottom, rgba(0,0,0,.7), transparent 85%);
-            animation: gridDrift 20s linear infinite;
+        .page-shell {
+            width: min(1180px, calc(100% - 2rem));
+            margin: 0 auto;
         }
 
-        @keyframes gridDrift {
-            from { background-position: 0 0; }
-            to { background-position: 70px 70px; }
-        }
-
-        /* =======================
-           NAVBAR
-        ======================= */
         .nt-nav {
-            position: fixed;
-            top: 18px;
-            left: 0;
-            right: 0;
+            position: sticky;
+            top: 0;
             z-index: 1000;
-            pointer-events: none;
+            padding: .85rem 0;
+            background: rgba(250,242,227,.86);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid rgba(31,41,51,.07);
         }
 
-        .nav-shell {
-            pointer-events: auto;
-            background: rgba(255,255,255,.72);
-            backdrop-filter: blur(22px);
-            border: 1px solid rgba(8,17,12,.08);
-            border-radius: 999px;
-            padding: .65rem .7rem;
-            box-shadow: 0 20px 60px rgba(8,17,12,.08);
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
         }
 
         .brand {
             display: inline-flex;
             align-items: center;
-            gap: .65rem;
-            color: var(--dark);
+            gap: .7rem;
+            color: var(--navy);
             font-weight: 900;
             letter-spacing: -.04em;
-            font-size: 1.12rem;
+            font-size: 1.15rem;
         }
 
         .brand-mark {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
+            width: 40px;
+            height: 40px;
             display: grid;
             place-items: center;
-            background: var(--dark);
-            color: var(--green);
-            box-shadow: 0 14px 30px rgba(8,17,12,.18);
+            border-radius: 14px;
+            color: var(--paper);
+            background: var(--green-dark);
+            box-shadow: 0 12px 30px rgba(31,70,50,.2);
         }
 
         .brand span span {
-            color: #16A34A;
+            color: var(--green);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: .35rem;
         }
 
         .nav-link-item {
-            color: #475467;
+            color: #596153;
             font-size: .86rem;
             font-weight: 800;
-            padding: .55rem .9rem;
+            padding: .55rem .85rem;
             border-radius: 999px;
-            transition: .2s ease;
         }
 
         .nav-link-item:hover {
-            color: var(--dark);
-            background: rgba(8,17,12,.06);
+            color: var(--navy);
+            background: rgba(50,104,75,.08);
         }
 
-        .btn-nav-login,
-        .btn-nav-signup {
-            min-height: 38px;
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+        }
+
+        .btn-soft,
+        .btn-solid,
+        .btn-outline-warm {
+            min-height: 42px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            gap: .55rem;
             border-radius: 999px;
-            font-size: .84rem;
+            padding: .72rem 1rem;
+            font-size: .86rem;
             font-weight: 900;
-            padding: .55rem 1rem;
-            transition: .22s ease;
+            transition: .2s ease;
             white-space: nowrap;
         }
 
-        .btn-nav-login {
-            color: var(--dark);
-            background: rgba(8,17,12,.06);
+        .btn-soft {
+            color: var(--navy);
+            background: rgba(255,255,255,.65);
+            border: 1px solid rgba(31,41,51,.09);
         }
 
-        .btn-nav-login:hover {
-            color: var(--dark);
-            background: rgba(8,17,12,.1);
+        .btn-soft:hover {
+            color: var(--navy);
+            transform: translateY(-1px);
+            background: #fff;
         }
 
-        .btn-nav-signup {
-            color: white;
-            background: var(--dark);
-            box-shadow: 0 14px 30px rgba(8,17,12,.18);
+        .btn-solid {
+            color: var(--paper);
+            background: var(--green-dark);
+            box-shadow: 0 16px 34px rgba(31,70,50,.22);
         }
 
-        .btn-nav-signup:hover {
-            color: white;
+        .btn-solid:hover {
+            color: var(--paper);
             transform: translateY(-2px);
-            background: #000;
+            background: #183A29;
         }
 
-        /* =======================
-           HERO
-        ======================= */
+        .btn-outline-warm {
+            color: var(--green-dark);
+            background: transparent;
+            border: 1px solid rgba(31,70,50,.24);
+        }
+
+        .btn-outline-warm:hover {
+            color: var(--green-dark);
+            transform: translateY(-2px);
+            background: rgba(255,255,255,.7);
+        }
+
         .hero {
-            min-height: 100vh;
-            display: flex;
+            padding: 4.8rem 0 3.6rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr);
+            gap: clamp(2rem, 5vw, 4.5rem);
             align-items: center;
-            padding: 8.5rem 0 5rem;
-            position: relative;
-        }
-
-        .hero-shell {
-            position: relative;
-            border-radius: 56px;
-            overflow: hidden;
-            background:
-                radial-gradient(circle at 12% 20%, rgba(53,208,127,.3), transparent 28%),
-                radial-gradient(circle at 80% 18%, rgba(255,179,71,.18), transparent 26%),
-                linear-gradient(135deg, #08110C 0%, #0D1D14 58%, #13261B 100%);
-            color: white;
-            padding: clamp(2rem, 5vw, 4.5rem);
-            box-shadow: var(--shadow);
-        }
-
-        .hero-shell::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background:
-                linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-            background-size: 54px 54px;
-            mask-image: radial-gradient(circle at 50% 40%, black, transparent 75%);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 3;
         }
 
         .eyebrow {
             display: inline-flex;
             align-items: center;
             gap: .55rem;
-            padding: .55rem .95rem;
+            color: var(--terracotta-dark);
+            background: rgba(197,108,69,.12);
+            border: 1px solid rgba(197,108,69,.18);
             border-radius: 999px;
-            background: rgba(255,255,255,.1);
-            border: 1px solid var(--line);
-            color: rgba(255,255,255,.84);
-            font-size: .78rem;
+            padding: .55rem .85rem;
+            font-size: .75rem;
             font-weight: 900;
-            letter-spacing: .09em;
+            letter-spacing: .1em;
             text-transform: uppercase;
-            margin-bottom: 1.4rem;
-            animation: fadeUp .75s ease both;
+            margin-bottom: 1.25rem;
         }
 
-        .hero-title {
-            font-family: 'Instrument Serif', serif;
-            font-size: clamp(3.4rem, 8vw, 7.8rem);
+        .hero h1 {
+            max-width: 760px;
+            margin: 0;
+            font-family: "Instrument Serif", serif;
+            color: var(--navy);
+            font-size: clamp(4rem, 8vw, 7.6rem);
             line-height: .86;
-            letter-spacing: -.07em;
-            max-width: 850px;
-            margin-bottom: 1.55rem;
-            animation: fadeUp .75s .08s ease both;
+            letter-spacing: -.06em;
         }
 
-        .hero-title em {
+        .hero h1 em {
+            color: var(--terracotta);
             font-style: italic;
-            color: var(--green-2);
         }
 
-        .hero-desc {
-            max-width: 620px;
-            color: rgba(255,255,255,.72);
-            font-size: 1.05rem;
-            line-height: 1.85;
-            margin-bottom: 2rem;
-            animation: fadeUp .75s .16s ease both;
+        .hero-copy {
+            max-width: 610px;
+            margin: 1.45rem 0 0;
+            color: #5D665A;
+            font-size: 1.04rem;
+            line-height: 1.9;
         }
 
         .hero-actions {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
-            animation: fadeUp .75s .24s ease both;
+            gap: .8rem;
+            margin-top: 1.8rem;
         }
 
-        .btn-hero-primary,
-        .btn-hero-ghost,
-        .btn-cta {
-            min-height: 56px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: .65rem;
-            border-radius: 999px;
-            font-size: .94rem;
-            font-weight: 900;
-            padding: .95rem 1.35rem;
-            transition: .22s ease;
-        }
-
-        .btn-hero-primary {
-            color: var(--dark);
-            background: linear-gradient(135deg, var(--green), var(--green-2));
-            box-shadow: 0 22px 55px rgba(53,208,127,.28);
-        }
-
-        .btn-hero-primary:hover {
-            color: var(--dark);
-            transform: translateY(-3px);
-            box-shadow: 0 28px 68px rgba(53,208,127,.35);
-        }
-
-        .btn-hero-ghost {
-            color: white;
-            background: rgba(255,255,255,.08);
-            border: 1px solid rgba(255,255,255,.16);
-        }
-
-        .btn-hero-ghost:hover {
-            color: white;
-            background: rgba(255,255,255,.14);
-            transform: translateY(-3px);
-        }
-
-        .hero-points {
+        .hero-notes {
             display: flex;
             flex-wrap: wrap;
             gap: .75rem;
             margin-top: 2rem;
-            animation: fadeUp .75s .32s ease both;
         }
 
-        .hero-pill {
+        .hero-note {
             display: inline-flex;
             align-items: center;
             gap: .45rem;
+            color: #4B554A;
+            background: rgba(255,255,255,.62);
+            border: 1px solid rgba(31,41,51,.08);
             border-radius: 999px;
-            padding: .58rem .85rem;
-            background: rgba(255,255,255,.08);
-            border: 1px solid rgba(255,255,255,.12);
-            color: rgba(255,255,255,.76);
+            padding: .55rem .8rem;
             font-size: .82rem;
-            font-weight: 700;
-        }
-
-        /* =======================
-           MEAL PLAN PREVIEW
-        ======================= */
-        .meal-preview {
-            position: relative;
-            z-index: 4;
-            max-width: 470px;
-            margin-left: auto;
-            border-radius: 34px;
-            overflow: hidden;
-            background: #FFFDF7;
-            color: var(--dark);
-            border: 1px solid rgba(255,255,255,.42);
-            box-shadow: 0 34px 90px rgba(0,0,0,.28);
-        }
-
-        .meal-preview-header {
-            padding: 1.25rem 1.25rem .9rem;
-            background:
-                linear-gradient(rgba(8,17,12,.04), rgba(8,17,12,.04)),
-                #FFFDF7;
-            border-bottom: 1px solid rgba(8,17,12,.08);
-        }
-
-        .preview-label {
-            color: #16A34A;
-            font-size: .72rem;
-            font-weight: 900;
-            letter-spacing: .12em;
-            text-transform: uppercase;
-            margin-bottom: .45rem;
-        }
-
-        .meal-preview-header h3 {
-            font-size: 1.28rem;
-            font-weight: 900;
-            letter-spacing: -.04em;
-            margin: 0;
-        }
-
-        .preview-target {
-            display: inline-flex;
-            align-items: center;
-            gap: .45rem;
-            margin-top: .75rem;
-            padding: .45rem .7rem;
-            border-radius: 999px;
-            background: #F4FFF7;
-            color: #166534;
-            font-size: .78rem;
             font-weight: 800;
         }
 
-        .preview-list {
-            padding: .9rem;
+        .hero-note i {
+            color: var(--green);
         }
 
-        .preview-meal {
-            display: grid;
-            grid-template-columns: 84px 1fr auto;
-            gap: .85rem;
-            align-items: center;
-            padding: .75rem;
-            border-radius: 22px;
-            background: white;
-            border: 1px solid rgba(8,17,12,.07);
-            margin-bottom: .75rem;
-        }
-
-        .preview-meal:last-child {
-            margin-bottom: 0;
-        }
-
-        .preview-photo {
-            width: 84px;
-            aspect-ratio: 4 / 3;
-            border-radius: 16px;
+        .plan-card {
+            position: relative;
+            background: var(--paper);
+            border: 1px solid rgba(31,41,51,.1);
+            border-radius: 34px;
+            box-shadow: var(--shadow);
             overflow: hidden;
-            background: #EEF7EA;
         }
 
-        .preview-photo img {
+        .plan-photo {
+            height: 190px;
+            position: relative;
+            background: #E9E0CF;
+        }
+
+        .plan-photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
 
-        .preview-time {
-            color: #667085;
+        .plan-photo::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(23,32,51,.1), rgba(23,32,51,.38));
+        }
+
+        .plan-badge {
+            position: absolute;
+            left: 1.1rem;
+            bottom: 1rem;
+            z-index: 2;
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+            color: var(--paper);
+            background: rgba(23,32,51,.72);
+            border: 1px solid rgba(255,255,255,.22);
+            border-radius: 999px;
+            padding: .48rem .72rem;
+            font-size: .76rem;
+            font-weight: 900;
+        }
+
+        .plan-body {
+            padding: 1.2rem;
+        }
+
+        .plan-head {
+            display: flex;
+            align-items: start;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(31,41,51,.08);
+        }
+
+        .plan-head small {
+            color: var(--terracotta-dark);
+            font-size: .72rem;
+            font-weight: 900;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .plan-head h2 {
+            margin: .35rem 0 0;
+            color: var(--navy);
+            font-size: 1.45rem;
+            font-weight: 900;
+            letter-spacing: -.04em;
+        }
+
+        .target-pill {
+            flex: 0 0 auto;
+            border-radius: 18px;
+            background: var(--sage);
+            color: var(--green-dark);
+            padding: .75rem .9rem;
+            text-align: center;
+            font-weight: 900;
+            line-height: 1.15;
+        }
+
+        .target-pill span {
+            display: block;
+            color: #5D665A;
+            font-size: .68rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .meal-list {
+            display: grid;
+            gap: .75rem;
+            margin-top: 1rem;
+        }
+
+        .meal-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: .8rem;
+            padding: .75rem;
+            border-radius: 20px;
+            background: #FCF7ED;
+            border: 1px solid rgba(31,41,51,.07);
+        }
+
+        .meal-time {
+            color: var(--terracotta-dark);
             font-size: .72rem;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: .08em;
         }
 
-        .preview-name {
-            color: var(--dark);
+        .meal-name {
+            margin-top: .15rem;
+            color: var(--navy);
             font-weight: 900;
-            font-size: .95rem;
-            margin: .15rem 0;
+            letter-spacing: -.02em;
         }
 
-        .preview-meta {
-            color: #667085;
-            font-size: .76rem;
-            font-weight: 700;
+        .cuisine-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: .32rem;
+            margin-top: .32rem;
+            color: #53604F;
+            font-size: .72rem;
+            font-weight: 800;
         }
 
-        .preview-kcal {
-            min-width: 58px;
-            text-align: center;
-            padding: .48rem .55rem;
+        .kcal {
+            min-width: 62px;
+            padding: .58rem .65rem;
             border-radius: 16px;
-            background: #F4FFF7;
-            color: #166534;
-            font-size: .8rem;
+            color: var(--green-dark);
+            background: #E9F2DF;
+            text-align: center;
+            font-size: .82rem;
             font-weight: 900;
         }
 
-        .preview-footer {
+        .kcal span {
+            display: block;
+            color: #6B735F;
+            font-size: .61rem;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .plan-footer {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
-            padding: 1rem 1.25rem 1.2rem;
-            background: #F8FBF6;
-            border-top: 1px solid rgba(8,17,12,.08);
-        }
-
-        .preview-footer span {
-            color: #475467;
-            font-size: .82rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 22px;
+            color: #4B554A;
+            background: #EFF4E8;
+            font-size: .86rem;
             font-weight: 800;
         }
 
-        .preview-score {
-            color: #16A34A;
-            font-weight: 900;
+        .plan-footer strong {
+            color: var(--green-dark);
         }
 
-        /* =======================
-           MARQUEE
-        ======================= */
-        .marquee-section {
-            margin-top: -2.2rem;
-            position: relative;
-            z-index: 5;
+        .section {
+            padding: 5.5rem 0;
         }
 
-        .marquee {
-            overflow: hidden;
-            border-radius: 999px;
-            background: white;
-            border: 1px solid rgba(8,17,12,.08);
-            box-shadow: 0 20px 70px rgba(8,17,12,.08);
-            padding: .9rem 0;
+        .section.alt {
+            background: rgba(255,252,246,.68);
+            border-top: 1px solid rgba(31,41,51,.07);
+            border-bottom: 1px solid rgba(31,41,51,.07);
         }
 
-        .marquee-track {
-            display: flex;
-            gap: 2rem;
-            white-space: nowrap;
-            animation: marqueeMove 22s linear infinite;
-        }
-
-        .marquee-item {
-            display: inline-flex;
-            align-items: center;
-            gap: .5rem;
-            color: #344054;
-            font-size: .9rem;
-            font-weight: 800;
-        }
-
-        .marquee-item i {
-            color: #16A34A;
-        }
-
-        @keyframes marqueeMove {
-            from { transform: translateX(0); }
-            to { transform: translateX(-50%); }
-        }
-
-        /* =======================
-           SECTIONS
-        ======================= */
-        .section-padding {
-            padding: 6rem 0;
+        .section-heading {
+            max-width: 780px;
+            margin-bottom: 2.4rem;
         }
 
         .section-kicker {
-            color: #16A34A;
-            font-size: .78rem;
+            color: var(--terracotta-dark);
+            font-size: .76rem;
             font-weight: 900;
-            text-transform: uppercase;
             letter-spacing: .12em;
-            margin-bottom: .75rem;
+            text-transform: uppercase;
+            margin-bottom: .65rem;
         }
 
         .section-title {
-            font-family: 'Instrument Serif', serif;
-            color: var(--dark);
-            font-size: clamp(2.6rem, 5vw, 5rem);
+            margin: 0;
+            font-family: "Instrument Serif", serif;
+            color: var(--navy);
+            font-size: clamp(3rem, 5.6vw, 5.4rem);
             line-height: .9;
             letter-spacing: -.055em;
-            margin-bottom: 1rem;
         }
 
-        .section-desc {
-            color: var(--muted);
+        .section-text {
+            max-width: 650px;
+            color: #626A5D;
             font-size: 1rem;
-            line-height: 1.8;
-            max-width: 660px;
+            line-height: 1.85;
+            margin-top: 1rem;
         }
 
-        /* =======================
-           BENTO FEATURES
-        ======================= */
-        .bento-grid {
+        .flow-strip {
             display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 1rem;
-            margin-top: 3rem;
-        }
-
-        .bento-card {
-            min-height: 250px;
-            border-radius: 36px;
-            padding: 1.6rem;
-            background: rgba(255,255,255,.78);
-            border: 1px solid rgba(8,17,12,.08);
-            box-shadow: 0 20px 70px rgba(8,17,12,.07);
-            backdrop-filter: blur(20px);
-            position: relative;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0;
             overflow: hidden;
-            transition: .25s ease;
-        }
-
-        .bento-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 30px 90px rgba(8,17,12,.12);
-        }
-
-        .bento-card.large {
-            grid-column: span 7;
-        }
-
-        .bento-card.medium {
-            grid-column: span 5;
-        }
-
-        .bento-card.small {
-            grid-column: span 4;
-        }
-
-        .bento-card::after {
-            content: "";
-            position: absolute;
-            width: 220px;
-            height: 220px;
-            border-radius: 50%;
-            right: -100px;
-            bottom: -100px;
-            background: rgba(53,208,127,.12);
-        }
-
-        .bento-icon {
-            width: 58px;
-            height: 58px;
-            border-radius: 22px;
-            display: grid;
-            place-items: center;
-            color: var(--dark);
-            background: #DFFFEA;
-            font-size: 1.55rem;
-            margin-bottom: 1.2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .bento-card h3 {
-            position: relative;
-            z-index: 2;
-            color: var(--dark);
-            font-size: 1.28rem;
-            font-weight: 900;
-            letter-spacing: -.04em;
-            margin-bottom: .7rem;
-        }
-
-        .bento-card p {
-            position: relative;
-            z-index: 2;
-            color: #667085;
-            line-height: 1.75;
-            font-size: .95rem;
-            margin: 0;
-        }
-
-        .bento-big-text {
-            position: absolute;
-            right: 1.4rem;
-            bottom: .8rem;
-            font-family: 'Instrument Serif', serif;
-            font-size: 5rem;
-            line-height: 1;
-            color: rgba(8,17,12,.07);
-            z-index: 1;
-        }
-
-        /* =======================
-           HOW IT WORKS
-        ======================= */
-        .journey {
-            position: relative;
-            margin-top: 3rem;
-        }
-
-        .journey::before {
-            content: "";
-            position: absolute;
-            top: 34px;
-            bottom: 34px;
-            left: 50%;
-            width: 2px;
-            transform: translateX(-50%);
-            background: linear-gradient(to bottom, transparent, rgba(22,163,74,.35), transparent);
-        }
-
-        .journey-row {
-            display: grid;
-            grid-template-columns: 1fr 92px 1fr;
-            gap: 1.5rem;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .journey-row:last-child {
-            margin-bottom: 0;
-        }
-
-        .journey-box {
             border-radius: 32px;
-            padding: 1.4rem;
-            background: rgba(255,255,255,.82);
-            border: 1px solid rgba(8,17,12,.08);
-            box-shadow: 0 20px 70px rgba(8,17,12,.07);
+            border: 1px solid rgba(31,41,51,.1);
+            background: var(--paper);
+            box-shadow: 0 22px 60px rgba(23,32,51,.08);
         }
 
-        .journey-box h4 {
-            color: var(--dark);
-            font-size: 1.05rem;
+        .flow-step {
+            min-height: 210px;
+            padding: 1.25rem;
+            border-right: 1px solid rgba(31,41,51,.09);
+            background: var(--paper);
+        }
+
+        .flow-step:nth-child(even) {
+            background: #F6EFDF;
+        }
+
+        .flow-step:last-child {
+            border-right: 0;
+        }
+
+        .flow-number {
+            color: var(--terracotta);
+            font-size: .8rem;
+            font-weight: 900;
+            letter-spacing: .12em;
+            margin-bottom: 2.2rem;
+        }
+
+        .flow-step h3 {
+            color: var(--navy);
+            font-size: 1.08rem;
             font-weight: 900;
             letter-spacing: -.03em;
-            margin-bottom: .5rem;
+            margin-bottom: .6rem;
         }
 
-        .journey-box p {
-            color: #667085;
-            font-size: .92rem;
+        .flow-step p {
+            color: #66705F;
+            font-size: .9rem;
             line-height: 1.7;
             margin: 0;
         }
 
-        .journey-number {
-            width: 72px;
-            height: 72px;
-            margin: 0 auto;
-            border-radius: 50%;
+        .personal-grid {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .journal-panel {
+            padding: 2rem;
+            border-radius: 34px;
+            color: var(--paper);
+            background: var(--navy);
+            box-shadow: var(--shadow);
+        }
+
+        .journal-panel h3 {
+            font-family: "Instrument Serif", serif;
+            font-size: clamp(2.6rem, 4vw, 4rem);
+            line-height: .95;
+            letter-spacing: -.055em;
+            margin-bottom: 1rem;
+        }
+
+        .journal-panel p {
+            color: rgba(255,252,246,.72);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .journal-lines {
+            display: grid;
+            gap: .75rem;
+            margin-top: 1.4rem;
+        }
+
+        .journal-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: .9rem 1rem;
+            border-radius: 18px;
+            background: rgba(255,252,246,.08);
+            border: 1px solid rgba(255,252,246,.1);
+            font-weight: 800;
+        }
+
+        .journal-line span {
+            color: var(--sage-2);
+        }
+
+        .reason-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .reason-card {
+            min-height: 172px;
+            padding: 1.2rem;
+            border-radius: 26px;
+            background: var(--paper);
+            border: 1px solid rgba(31,41,51,.09);
+        }
+
+        .reason-card.warm {
+            background: #F8E8D8;
+        }
+
+        .reason-card.green {
+            background: #EAF2E0;
+        }
+
+        .reason-card h4 {
+            color: var(--navy);
+            font-size: 1rem;
+            font-weight: 900;
+            letter-spacing: -.03em;
+            margin-bottom: .55rem;
+        }
+
+        .reason-card p {
+            color: #60695C;
+            font-size: .9rem;
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        .feature-board {
+            display: grid;
+            grid-template-columns: .95fr 1.05fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .board-photo {
+            min-height: 500px;
+            border-radius: 38px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background: #DDD1BD;
+        }
+
+        .board-photo img {
+            width: 100%;
+            height: 100%;
+            min-height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .feature-list {
+            display: grid;
+            gap: .9rem;
+        }
+
+        .feature-item {
+            display: grid;
+            grid-template-columns: 42px 1fr;
+            gap: 1rem;
+            padding: 1.05rem;
+            border-radius: 24px;
+            background: rgba(255,252,246,.76);
+            border: 1px solid rgba(31,41,51,.08);
+        }
+
+        .feature-mark {
+            width: 42px;
+            height: 42px;
             display: grid;
             place-items: center;
-            color: var(--dark);
-            background: linear-gradient(135deg, var(--green), var(--green-2));
+            border-radius: 15px;
+            color: var(--paper);
+            background: var(--terracotta);
+        }
+
+        .feature-item h3 {
+            margin: 0 0 .35rem;
+            color: var(--navy);
+            font-size: 1rem;
             font-weight: 900;
-            font-size: 1.15rem;
-            box-shadow: 0 18px 45px rgba(53,208,127,.3);
-            position: relative;
-            z-index: 3;
         }
 
-        .empty-cell {
-            min-height: 1px;
+        .feature-item p {
+            margin: 0;
+            color: #626A5D;
+            font-size: .92rem;
+            line-height: 1.7;
         }
 
-        /* =======================
-           CTA
-        ======================= */
-        .cta-zone {
-            padding: 6rem 0 7rem;
+        .cta {
+            padding: 5.5rem 0 6.5rem;
         }
 
-        .cta-card {
-            position: relative;
-            overflow: hidden;
-            border-radius: 56px;
-            padding: clamp(2.3rem, 6vw, 5rem);
-            background:
-                radial-gradient(circle at 20% 20%, rgba(53,208,127,.28), transparent 28%),
-                radial-gradient(circle at 86% 24%, rgba(167,243,91,.22), transparent 28%),
-                linear-gradient(135deg, #08110C, #122D1D);
-            color: white;
+        .cta-panel {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            align-items: center;
+            padding: clamp(2rem, 5vw, 4rem);
+            border-radius: 38px;
+            color: var(--paper);
+            background: var(--green-dark);
             box-shadow: var(--shadow);
-            text-align: center;
         }
 
-        .cta-card h2 {
-            position: relative;
-            z-index: 2;
-            font-family: 'Instrument Serif', serif;
-            font-size: clamp(3rem, 6vw, 6rem);
-            line-height: .88;
-            letter-spacing: -.06em;
-            margin-bottom: 1.2rem;
+        .cta-panel h2 {
+            max-width: 720px;
+            margin: 0;
+            font-family: "Instrument Serif", serif;
+            font-size: clamp(3rem, 5vw, 5.4rem);
+            line-height: .9;
+            letter-spacing: -.055em;
         }
 
-        .cta-card p {
-            position: relative;
-            z-index: 2;
-            max-width: 620px;
-            margin: 0 auto 2rem;
-            color: rgba(255,255,255,.72);
+        .cta-panel p {
+            max-width: 600px;
+            margin: 1rem 0 0;
+            color: rgba(255,252,246,.74);
             line-height: 1.8;
         }
 
-        .btn-cta {
-            position: relative;
-            z-index: 2;
-            color: var(--dark);
-            background: linear-gradient(135deg, var(--green), var(--green-2));
-            box-shadow: 0 22px 55px rgba(53,208,127,.25);
+        .cta-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .75rem;
         }
 
-        .btn-cta:hover {
-            color: var(--dark);
-            transform: translateY(-3px);
+        .cta-actions .btn-solid {
+            color: var(--green-dark);
+            background: var(--paper);
+            box-shadow: none;
         }
-        
 
-        
+        .cta-actions .btn-outline-warm {
+            color: var(--paper);
+            border-color: rgba(255,252,246,.35);
+        }
 
-        /* =======================
-           FOOTER
-        ======================= */
         .nt-footer {
-            padding: 2.4rem 0;
-            background: white;
-            border-top: 1px solid rgba(8,17,12,.08);
+            padding: 2.2rem 0;
+            background: #EEE4D1;
+            border-top: 1px solid rgba(31,41,51,.08);
         }
 
-        .footer-brand {
-            color: var(--dark);
-            font-weight: 900;
-            letter-spacing: -.04em;
-            font-size: 1.15rem;
+        .footer-grid {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            color: #626A5D;
+            font-size: .88rem;
         }
 
-        .footer-brand span {
-            color: #16A34A;
-        }
-
-        /* =======================
-           ANIMATIONS
-        ======================= */
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(28px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .footer-grid strong {
+            color: var(--navy);
         }
 
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(24px);
             transition: .65s ease;
         }
 
@@ -815,60 +757,62 @@
             transform: translateY(0);
         }
 
-        /* =======================
-           RESPONSIVE
-        ======================= */
         @media (max-width: 991px) {
-            .nt-nav {
-                top: 10px;
+            .nav-links {
+                display: none;
             }
 
             .hero {
-                padding-top: 6.8rem;
+                padding-top: 3.4rem;
             }
 
-            .hero-shell {
-                border-radius: 38px;
+            .hero-grid,
+            .personal-grid,
+            .feature-board,
+            .cta-panel {
+                grid-template-columns: 1fr;
             }
 
-            .meal-preview {
-                margin: 1.5rem auto 0;
+            .plan-card {
+                max-width: 560px;
+                margin: 0 auto;
             }
 
-            .bento-card.large,
-            .bento-card.medium,
-            .bento-card.small {
-                grid-column: span 12;
+            .flow-strip {
+                grid-template-columns: 1fr;
             }
 
-            .journey::before {
-                left: 36px;
-                transform: none;
+            .flow-step {
+                min-height: auto;
+                border-right: 0;
+                border-bottom: 1px solid rgba(31,41,51,.09);
             }
 
-            .journey-row {
-                grid-template-columns: 72px 1fr;
+            .flow-step:last-child {
+                border-bottom: 0;
             }
 
-            .journey-number {
-                grid-column: 1;
-                grid-row: 1;
-                width: 64px;
-                height: 64px;
+            .flow-number {
+                margin-bottom: 1rem;
             }
 
-            .journey-box {
-                grid-column: 2;
+            .board-photo,
+            .board-photo img {
+                min-height: 360px;
             }
 
-            .empty-cell {
-                display: none;
+            .cta-actions {
+                justify-content: flex-start;
             }
         }
 
         @media (max-width: 767px) {
-            .nav-shell {
-                border-radius: 28px;
+            .page-shell {
+                width: min(100% - 1rem, 1180px);
+            }
+
+            .nav-inner {
+                align-items: flex-start;
             }
 
             .brand {
@@ -876,105 +820,86 @@
             }
 
             .brand-mark {
-                width: 32px;
-                height: 32px;
+                width: 36px;
+                height: 36px;
             }
 
-            .nav-link-item {
-                display: none;
+            .nav-actions {
+                flex-wrap: wrap;
+                justify-content: flex-end;
             }
 
-            .btn-nav-login,
-            .btn-nav-signup {
+            .btn-soft,
+            .btn-solid,
+            .btn-outline-warm {
+                min-height: 38px;
+                padding: .62rem .8rem;
                 font-size: .78rem;
-                padding: .5rem .8rem;
             }
 
-            .hero-title {
-                font-size: 4rem;
+            .hero h1 {
+                font-size: 4.2rem;
             }
 
-            .hero-desc {
-                font-size: .96rem;
+            .meal-row {
+                grid-template-columns: 1fr auto;
             }
 
-            .meal-preview {
-                border-radius: 26px;
+            .meal-time {
+                grid-column: 1 / -1;
             }
 
-            .preview-meal {
-                grid-template-columns: 72px 1fr;
-                align-items: start;
-            }
-
-            .preview-photo {
-                width: 72px;
-            }
-
-            .preview-kcal {
-                grid-column: 2;
-                width: fit-content;
-            }
-
-            .preview-footer {
-                align-items: flex-start;
+            .plan-head,
+            .plan-footer {
                 flex-direction: column;
+                align-items: flex-start;
             }
 
-            .btn-hero-primary,
-            .btn-hero-ghost,
-            .btn-cta {
-                width: 100%;
+            .target-pill {
+                text-align: left;
             }
 
-            .section-padding,
-            .cta-zone {
-                padding: 4.5rem 0;
+            .reason-grid {
+                grid-template-columns: 1fr;
             }
 
-            .section-title {
-                font-size: 3.2rem;
+            .section,
+            .cta {
+                padding: 4rem 0;
             }
 
-            .journey-row {
-                gap: 1rem;
-            }
-
-            .journey-box {
-                padding: 1.1rem;
+            .footer-grid {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
 </head>
-
 <body>
-<div class="site-bg"></div>
-<div class="floating-noise"></div>
-
-{{-- ===================== NAVBAR ===================== --}}
 <nav class="nt-nav">
-    <div class="container">
-        <div class="nav-shell d-flex align-items-center justify-content-between">
+    <div class="page-shell">
+        <div class="nav-inner">
             <a href="{{ url('/') }}" class="brand">
                 <span class="brand-mark">
-                    <i class="bi bi-leaf-fill"></i>
+                    <i class="bi bi-heart-pulse-fill"></i>
                 </span>
                 <span>Nutri<span>Track</span></span>
             </a>
 
-            <div class="d-none d-lg-flex align-items-center gap-1">
+            <div class="nav-links">
+                <a href="#flow" class="nav-link-item">Flow</a>
+                <a href="#personal" class="nav-link-item">Why Personal</a>
                 <a href="#features" class="nav-link-item">Features</a>
-                <a href="#how-it-works" class="nav-link-item">How It Works</a>
             </div>
 
-            <div class="d-flex align-items-center gap-2">
+            <div class="nav-actions">
                 @if(Route::has('login'))
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="btn-nav-signup">Dashboard</a>
+                        <a href="{{ url('/dashboard') }}" class="btn-solid">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="btn-nav-login">Log in</a>
+                        <a href="{{ route('login') }}" class="btn-soft">Login</a>
                         @if(Route::has('register'))
-                            <a href="{{ route('register') }}" class="btn-nav-signup">Get started</a>
+                            <a href="{{ route('register') }}" class="btn-solid">Get Started</a>
                         @endif
                     @endauth
                 @endif
@@ -983,446 +908,308 @@
     </div>
 </nav>
 
-{{-- ===================== HERO ===================== --}}
-<section class="hero">
-    <div class="container">
-        <div class="hero-shell">
-            <div class="row align-items-center g-5">
-                <div class="col-12 col-lg-7">
-                    <div class="hero-content">
-                        <div class="eyebrow">
-                            <i class="bi bi-stars"></i>
-                            Personalized Healthy Meal Recommendation System
+<main>
+    <section class="hero">
+        <div class="page-shell">
+            <div class="hero-grid">
+                <div>
+                    <div class="eyebrow">
+                        <i class="bi bi-journal-medical"></i>
+                        Laravel FYP meal recommendation system
+                    </div>
+
+                    <h1>
+                        Plan healthier meals from a profile, not a blank page.
+                    </h1>
+
+                    <p class="hero-copy">
+                        NutriTrack helps users estimate their daily calorie needs, set food preferences,
+                        avoid declared allergens, and choose suitable meals through a simple web-based planner.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="{{ route('guest.quiz') }}" class="btn-solid">
+                            <i class="bi bi-clipboard2-pulse"></i>
+                            Try Starter Quiz
+                        </a>
+                        <a href="#flow" class="btn-outline-warm">
+                            <i class="bi bi-arrow-down-circle"></i>
+                            View System Flow
+                        </a>
+                    </div>
+
+                    <div class="hero-notes">
+                        <span class="hero-note"><i class="bi bi-check2-circle"></i> DCR-based planning</span>
+                        <span class="hero-note"><i class="bi bi-check2-circle"></i> Allergy filtering</span>
+                        <span class="hero-note"><i class="bi bi-check2-circle"></i> Meal Log tracking</span>
+                    </div>
+                </div>
+
+                <aside class="plan-card reveal" aria-label="Today's NutriTrack Plan preview">
+                    <div class="plan-photo">
+                        <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=900&q=80" alt="Healthy meal ingredients on a table">
+                        <div class="plan-badge">
+                            <i class="bi bi-calendar2-check"></i>
+                            Today's NutriTrack Plan
+                        </div>
+                    </div>
+
+                    <div class="plan-body">
+                        <div class="plan-head">
+                            <div>
+                                <small>Example daily target</small>
+                                <h2>Balanced day for a Western preference</h2>
+                            </div>
+                            <div class="target-pill">
+                                1,850
+                                <span>kcal</span>
+                            </div>
                         </div>
 
-                        <h1 class="hero-title">
-                            Meal planning that starts with <em>your profile.</em>
-                        </h1>
+                        <div class="meal-list">
+                            <div class="meal-row">
+                                <div>
+                                    <div class="meal-time">Breakfast</div>
+                                    <div class="meal-name">Avocado Egg Toast</div>
+                                    <div class="cuisine-tag"><i class="bi bi-globe2"></i> Western</div>
+                                </div>
+                                <div class="kcal">340<span>kcal</span></div>
+                            </div>
 
-                        <p class="hero-desc">
-                            NutriTrack is a web-based FYP system that recommends healthier meals using
-                            daily calorie needs, allergies, goals, and cuisine preference. It helps users
-                            choose meals with clearer nutrition context, not guesswork.
+                            <div class="meal-row">
+                                <div>
+                                    <div class="meal-time">Lunch</div>
+                                    <div class="meal-name">Chicken Rice Bowl</div>
+                                    <div class="cuisine-tag"><i class="bi bi-globe2"></i> Chinese</div>
+                                </div>
+                                <div class="kcal">520<span>kcal</span></div>
+                            </div>
+
+                            <div class="meal-row">
+                                <div>
+                                    <div class="meal-time">Dinner</div>
+                                    <div class="meal-name">Tandoori Chicken Plate</div>
+                                    <div class="cuisine-tag"><i class="bi bi-globe2"></i> Indian</div>
+                                </div>
+                                <div class="kcal">610<span>kcal</span></div>
+                            </div>
+
+                            <div class="meal-row">
+                                <div>
+                                    <div class="meal-time">Snack</div>
+                                    <div class="meal-name">Labneh Fruit Cup</div>
+                                    <div class="cuisine-tag"><i class="bi bi-globe2"></i> Middle Eastern</div>
+                                </div>
+                                <div class="kcal">210<span>kcal</span></div>
+                            </div>
+                        </div>
+
+                        <div class="plan-footer">
+                            <span><i class="bi bi-shield-check me-1"></i> Allergy checks before ranking</span>
+                            <strong>92% fit</strong>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <section class="section alt" id="flow">
+        <div class="page-shell">
+            <div class="section-heading reveal">
+                <div class="section-kicker">Actual NutriTrack flow</div>
+                <h2 class="section-title">From first estimate to saved meals.</h2>
+                <p class="section-text">
+                    The homepage now mirrors how the system is used in the project: a user starts with a quick
+                    estimate, completes their profile, receives recommendations, compares Meal Options, and saves meals.
+                </p>
+            </div>
+
+            <div class="flow-strip reveal">
+                <div class="flow-step">
+                    <div class="flow-number">01</div>
+                    <h3>Starter Quiz</h3>
+                    <p>A quick public quiz estimates initial calorie needs before account setup.</p>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-number">02</div>
+                    <h3>Health Profile</h3>
+                    <p>The user adds age, height, weight, activity level, goal, allergies, and cuisine preference.</p>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-number">03</div>
+                    <h3>Daily Plan</h3>
+                    <p>NutriTrack builds one complete day of meals using the user's calculated target.</p>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-number">04</div>
+                    <h3>Meal Options</h3>
+                    <p>Users compare alternatives, refresh choices, rate meals, and pick what suits them.</p>
+                </div>
+                <div class="flow-step">
+                    <div class="flow-number">05</div>
+                    <h3>Meal Log</h3>
+                    <p>Saved meals are collected in one place so users can review what they selected.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="personal">
+        <div class="page-shell">
+            <div class="personal-grid">
+                <div class="journal-panel reveal">
+                    <div class="section-kicker" style="color:#CFE2BE;">Why it feels personal</div>
+                    <h3>NutriTrack does not recommend the same meals to everyone.</h3>
+                    <p>
+                        The recommendation flow is built from the user's profile, not a generic meal list.
+                        That makes the system easier to explain during evaluation because each result has a reason.
+                    </p>
+
+                    <div class="journal-lines">
+                        <div class="journal-line">
+                            <strong>Daily target</strong>
+                            <span>DCR calculated</span>
+                        </div>
+                        <div class="journal-line">
+                            <strong>Risk check</strong>
+                            <span>Allergies filtered</span>
+                        </div>
+                        <div class="journal-line">
+                            <strong>Preference</strong>
+                            <span>Malay, Chinese, Indian, Western, Middle Eastern</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reason-grid">
+                    <div class="reason-card green reveal">
+                        <h4>DCR-based planning</h4>
+                        <p>Meals are compared against the user's daily calorie target instead of shown randomly.</p>
+                    </div>
+                    <div class="reason-card reveal">
+                        <h4>Allergy filtering</h4>
+                        <p>Declared allergens are checked before meals are presented as suitable options.</p>
+                    </div>
+                    <div class="reason-card warm reveal">
+                        <h4>Cuisine preference</h4>
+                        <p>Preferred cuisine improves ranking while keeping the accepted cuisine categories consistent.</p>
+                    </div>
+                    <div class="reason-card reveal">
+                        <h4>AI Food Logger</h4>
+                        <p>Users can describe a meal and receive nutrition estimates for faster food tracking.</p>
+                    </div>
+                    <div class="reason-card reveal" style="grid-column:1 / -1;">
+                        <h4>Admin-verified meal data</h4>
+                        <p>Admin review keeps imported and created meals more controlled before they appear in the recommendation flow.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section alt" id="features">
+        <div class="page-shell">
+            <div class="feature-board">
+                <div class="board-photo reveal">
+                    <img src="https://images.unsplash.com/photo-1543352634-a1c51d9f1fa7?auto=format&fit=crop&w=900&q=80" alt="Healthy meal bowls prepared on a table" loading="lazy">
+                </div>
+
+                <div>
+                    <div class="section-heading reveal">
+                        <div class="section-kicker">Built for a student project demo</div>
+                        <h2 class="section-title">Clean enough for users, clear enough for evaluation.</h2>
+                        <p class="section-text">
+                            The interface focuses on the features that matter: profile setup, meal recommendation,
+                            meal comparison, AI-assisted logging, and admin-controlled meal data.
                         </p>
-
-                        <div class="hero-actions">
-                            <a href="{{ route('guest.quiz') }}" class="btn-hero-primary">
-                                <i class="bi bi-clipboard2-pulse-fill"></i>
-                                Start guest quiz
-                            </a>
-
-                            <a href="#how-it-works" class="btn-hero-ghost">
-                                <i class="bi bi-play-circle-fill"></i>
-                                See how it works
-                            </a>
-                        </div>
-
-                        <div class="hero-points">
-                            <div class="hero-pill">
-                                <i class="bi bi-calculator-fill" style="color: var(--green);"></i>
-                                DCR-based planning
-                            </div>
-
-                            <div class="hero-pill">
-                                <i class="bi bi-shield-check-fill" style="color: var(--green-2);"></i>
-                                Allergy-aware filtering
-                            </div>
-
-                            <div class="hero-pill">
-                                <i class="bi bi-cup-hot-fill" style="color: var(--orange);"></i>
-                                Cuisine preference matching
-                            </div>
-                        </div>
                     </div>
-                </div>
 
-                <div class="col-12 col-lg-5">
-                    <div class="meal-preview">
-                        <div class="meal-preview-header">
-                            <div class="preview-label">Today's Meal Plan Preview</div>
-                            <h3>A full day built around one calorie target.</h3>
-                            <div class="preview-target">
-                                <i class="bi bi-bullseye"></i>
-                                1,850 kcal target · Western preference
+                    <div class="feature-list">
+                        <div class="feature-item reveal">
+                            <div class="feature-mark"><i class="bi bi-calculator"></i></div>
+                            <div>
+                                <h3>Nutrition calculations are visible</h3>
+                                <p>Users can understand how calorie targets connect to their goal and activity level.</p>
                             </div>
                         </div>
-
-                        <div class="preview-list">
-                            <div class="preview-meal">
-                                <div class="preview-photo">
-                                    <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=420&q=80" alt="Avocado toast breakfast">
-                                </div>
-                                <div>
-                                    <div class="preview-time">Breakfast</div>
-                                    <div class="preview-name">Avocado Toast</div>
-                                    <div class="preview-meta">egg · wholegrain · balanced fat</div>
-                                </div>
-                                <div class="preview-kcal">340</div>
-                            </div>
-
-                            <div class="preview-meal">
-                                <div class="preview-photo">
-                                    <img src="https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=420&q=80" alt="Chicken sandwich lunch">
-                                </div>
-                                <div>
-                                    <div class="preview-time">Lunch</div>
-                                    <div class="preview-name">Chicken Sandwich</div>
-                                    <div class="preview-meta">lean protein · vegetables</div>
-                                </div>
-                                <div class="preview-kcal">480</div>
-                            </div>
-
-                            <div class="preview-meal">
-                                <div class="preview-photo">
-                                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=420&q=80" alt="Salmon bowl dinner">
-                                </div>
-                                <div>
-                                    <div class="preview-time">Dinner</div>
-                                    <div class="preview-name">Salmon Quinoa Bowl</div>
-                                    <div class="preview-meta">protein · fibre · steady energy</div>
-                                </div>
-                                <div class="preview-kcal">520</div>
-                            </div>
-
-                            <div class="preview-meal">
-                                <div class="preview-photo">
-                                    <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=420&q=80" alt="Yogurt and fruit snack">
-                                </div>
-                                <div>
-                                    <div class="preview-time">Snack</div>
-                                    <div class="preview-name">Yogurt Fruit Cup</div>
-                                    <div class="preview-meta">simple snack · lower sugar</div>
-                                </div>
-                                <div class="preview-kcal">210</div>
+                        <div class="feature-item reveal">
+                            <div class="feature-mark"><i class="bi bi-ui-checks-grid"></i></div>
+                            <div>
+                                <h3>Meal Options support choice</h3>
+                                <p>The system gives alternatives instead of forcing one meal, which makes the planner feel more usable.</p>
                             </div>
                         </div>
-
-                        <div class="preview-footer">
-                            <span><i class="bi bi-shield-check me-1"></i> Allergens checked before ranking</span>
-                            <span class="preview-score">92% fit</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- Moving benefits strip --}}
-        <div class="marquee-section">
-            <div class="marquee">
-                <div class="marquee-track">
-                    <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Breakfast, lunch, dinner, and snack planning</span>
-                    <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Personalized calorie targets</span>
-                    <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Allergy-aware recommendations</span>
-                    <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Meal Log support</span>
-                    <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Swap and rate meals</span>
-
-                    <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Breakfast, lunch, dinner, and snack planning</span>
-                    <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Personalized calorie targets</span>
-                    <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Allergy-aware recommendations</span>
-                    <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Meal Log support</span>
-                    <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Swap and rate meals</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-{{-- ===================== FEATURES ===================== --}}
-<section class="section-padding" id="features">
-    <div class="container">
-        <div class="row align-items-end g-4">
-            <div class="col-12 col-lg-7 reveal">
-                <div class="section-kicker">What NutriTrack does</div>
-                <h2 class="section-title">A practical flow for everyday meal decisions.</h2>
-            </div>
-
-            <div class="col-12 col-lg-5 reveal">
-                <p class="section-desc ms-lg-auto">
-                    The system connects profile data, calorie calculation, allergy checks, and meal scoring
-                    into one student-friendly workflow for planning, choosing, and saving meals.
-                </p>
-            </div>
-        </div>
-
-        <div class="bento-grid">
-            <div class="bento-card large reveal">
-                <div class="bento-icon">
-                    <i class="bi bi-calculator-fill"></i>
-                </div>
-                <h3>Daily calorie target calculation</h3>
-                <p>
-                    NutriTrack estimates BMR, TDEE, and Daily Caloric Requirement from age, weight,
-                    height, activity level, and health goal before meals are recommended.
-                </p>
-                <div class="bento-big-text">DCR</div>
-            </div>
-
-            <div class="bento-card medium reveal">
-                <div class="bento-icon" style="background: #FFF2D8;">
-                    <i class="bi bi-shield-check-fill"></i>
-                </div>
-                <h3>Allergy-aware meal filtering</h3>
-                <p>
-                    Meals that may contain declared allergens are removed early so the recommendation list
-                    is safer and easier to review.
-                </p>
-                <div class="bento-big-text">Safe</div>
-            </div>
-
-            <div class="bento-card small reveal">
-                <div class="bento-icon" style="background: #E0F2FE;">
-                    <i class="bi bi-cup-hot-fill"></i>
-                </div>
-                <h3>Cuisine preference matching</h3>
-                <p>
-                    Meal ranking considers the user's selected cuisine preference such as Malay, Chinese,
-                    Indian, Western, or Middle Eastern.
-                </p>
-                <div class="bento-big-text">Taste</div>
-            </div>
-
-            <div class="bento-card small reveal">
-                <div class="bento-icon" style="background: #F3E8FF;">
-                    <i class="bi bi-calendar-week-fill"></i>
-                </div>
-                <h3>Weekly meal planning</h3>
-                <p>
-                    Users can generate a weekly view when they want structure beyond today's meals.
-                </p>
-                <div class="bento-big-text">Plan</div>
-            </div>
-
-            <div class="bento-card small reveal">
-                <div class="bento-icon" style="background: #FFE4E6;">
-                    <i class="bi bi-arrow-repeat"></i>
-                </div>
-                <h3>Swap and rate meals</h3>
-                <p>
-                    Meal Options let users refresh, compare, rate, and save the meals that fit them best.
-                </p>
-                <div class="bento-big-text">Rate</div>
-            </div>
-
-            <div class="bento-card medium reveal">
-                <div class="bento-icon" style="background: #DCFCE7;">
-                    <i class="bi bi-journal-check"></i>
-                </div>
-                <h3>Personal Meal Log</h3>
-                <p>
-                    Recommended meals can be saved into a personal Meal Log, allowing users to review
-                    their saved meals anytime.
-                </p>
-                <div class="bento-big-text">Log</div>
-            </div>
-
-            <div class="bento-card large reveal">
-                <div class="bento-icon" style="background: #FEF9C3;">
-                    <i class="bi bi-magic"></i>
-                </div>
-                <h3>AI food logger support</h3>
-                <p>
-                    Users can describe a meal in normal language and receive estimated calories and macros
-                    for quicker food intake tracking.
-                </p>
-                <div class="bento-big-text">AI</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-{{-- ===================== HOW IT WORKS ===================== --}}
-<section class="section-padding" id="how-it-works">
-    <div class="container">
-        <div class="text-center reveal">
-            <div class="section-kicker">How it works</div>
-            <h2 class="section-title">From profile to plate.</h2>
-            <p class="section-desc mx-auto">
-                NutriTrack keeps the flow simple, but the recommendation logic works behind the scenes
-                to make each result more suitable for the user.
-            </p>
-        </div>
-
-        <div class="journey">
-            <div class="journey-row reveal">
-                <div class="journey-box">
-                    <h4><i class="bi bi-person-plus-fill me-1" style="color:#16A34A;"></i> Create your account</h4>
-                    <p>Users register and access NutriTrack through a secure account.</p>
-                </div>
-                <div class="journey-number">01</div>
-                <div class="empty-cell"></div>
-            </div>
-
-            <div class="journey-row reveal">
-                <div class="empty-cell"></div>
-                <div class="journey-number">02</div>
-                <div class="journey-box">
-                    <h4><i class="bi bi-clipboard2-pulse-fill me-1" style="color:#16A34A;"></i> Complete health profile</h4>
-                    <p>Users enter their age, height, weight, activity level, goal, allergies, and cuisine preference.</p>
-                </div>
-            </div>
-
-            <div class="journey-row reveal">
-                <div class="journey-box">
-                    <h4><i class="bi bi-calculator-fill me-1" style="color:#16A34A;"></i> Calculate calorie needs</h4>
-                    <p>The system calculates BMR, TDEE, and Daily Caloric Requirement.</p>
-                </div>
-                <div class="journey-number">03</div>
-                <div class="empty-cell"></div>
-            </div>
-
-            <div class="journey-row reveal">
-                <div class="empty-cell"></div>
-                <div class="journey-number">04</div>
-                <div class="journey-box">
-                    <h4><i class="bi bi-stars me-1" style="color:#16A34A;"></i> Recommend safe meals</h4>
-                    <p>Meals are filtered for allergies and ranked based on calorie gap and cuisine preference.</p>
-                </div>
-            </div>
-
-            <div class="journey-row reveal">
-                <div class="journey-box">
-                    <h4><i class="bi bi-journal-check me-1" style="color:#16A34A;"></i> Save to Meal Log</h4>
-                    <p>Users can save selected meals and review them later in their personal Meal Log.</p>
-                </div>
-                <div class="journey-number">05</div>
-                <div class="empty-cell"></div>
-            </div>
-        </div>
-    </div>
-</section>
-
-{{-- ===================== CTA ===================== --}}
-<section class="cta-zone">
-    <div class="container">
-        <div class="cta-card reveal">
-            <h2>Plan meals that fit your real life.</h2>
-            <p>
-                Start your profile and let NutriTrack recommend meals based on your body,
-                your goal, your allergies, and your food preference.
-            </p>
-
-            <div class="d-flex justify-content-center gap-3 flex-wrap">
-                <a href="{{ route('register') }}" class="btn-cta">
-                    <i class="bi bi-rocket-takeoff-fill"></i>
-                    Create free account
-                </a>
-
-                <a href="{{ route('login') }}" class="btn-hero-ghost">
-                    <i class="bi bi-box-arrow-in-right"></i>
-                    Log in
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-{{-- ===================== NUTRITION GUIDE TEASER ===================== --}}
-<section class="section-padding">
-    <div class="container">
-        <div class="row align-items-center g-4">
-            <div class="col-12 col-lg-6">
-                <div class="section-kicker">Nutrition Guide</div>
-
-                <h2 class="section-title">
-                    New to calories?
-                </h2>
-
-                <p class="section-desc">
-                    NutriTrack helps users understand basic nutrition terms such as BMI, BMR, TDEE, DCR,
-                    calorie deficit, and calorie surplus before they start using the meal recommendation system.
-                </p>
-
-                <div class="mt-4 d-flex gap-3 flex-wrap">
-                    @auth
-                        <a href="{{ route('nutrition-guide') }}" class="btn-cta">
-                            <i class="bi bi-book-fill"></i>
-                            Open Nutrition Guide
-                        </a>
-                    @else
-                        <a href="{{ route('register') }}" class="btn-cta">
-                            <i class="bi bi-person-plus-fill"></i>
-                            Create account to learn
-                        </a>
-
-                        <a href="{{ route('guest.quiz') }}" class="btn-hero-ghost" style="color:var(--dark);border-color:rgba(8,17,12,.12);background:white;">
-                            <i class="bi bi-clipboard2-pulse-fill"></i>
-                            Try guest quiz
-                        </a>
-                    @endauth
-                </div>
-            </div>
-
-            <div class="col-12 col-lg-6">
-                <div class="bento-card reveal" style="min-height:auto;">
-                    <div class="row g-3">
-                        <div class="col-12 col-md-6">
-                            <div style="border-radius:24px;padding:1rem;background:#F4FFF7;border:1px solid rgba(22,163,74,.12);height:100%;">
-                                <div style="font-size:1.65rem;margin-bottom:.5rem;color:#16A34A;"><i class="bi bi-activity"></i></div>
-                                <h5 style="font-weight:900;color:var(--dark);">BMR & TDEE</h5>
-                                <p style="color:var(--muted);font-size:.9rem;line-height:1.7;margin:0;">
-                                    Learn how your body burns calories at rest and during daily activity.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-6">
-                            <div style="border-radius:24px;padding:1rem;background:#FFF8E8;border:1px solid rgba(249,115,22,.12);height:100%;">
-                                <div style="font-size:1.65rem;margin-bottom:.5rem;color:#F97316;"><i class="bi bi-bullseye"></i></div>
-                                <h5 style="font-weight:900;color:var(--dark);">DCR</h5>
-                                <p style="color:var(--muted);font-size:.9rem;line-height:1.7;margin:0;">
-                                    Understand how NutriTrack adjusts calories based on lose, maintain, or gain weight goals.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div style="border-radius:24px;padding:1rem;background:#F0F9FF;border:1px solid rgba(14,165,233,.12);">
-                                <div style="font-size:1.65rem;margin-bottom:.5rem;color:#0284C7;"><i class="bi bi-pie-chart-fill"></i></div>
-                                <h5 style="font-weight:900;color:var(--dark);">Meal calorie split</h5>
-                                <p style="color:var(--muted);font-size:.9rem;line-height:1.7;margin:0;">
-                                    See how NutriTrack divides daily calories into breakfast, lunch, dinner, and snack targets.
-                                </p>
+                        <div class="feature-item reveal">
+                            <div class="feature-mark"><i class="bi bi-journal-check"></i></div>
+                            <div>
+                                <h3>Meal Log keeps the result</h3>
+                                <p>Selected meals can be saved and reviewed later as part of the user's meal history.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-   </div>
-</section>
+    </section>
 
-{{-- ===================== FOOTER ===================== --}}
+    <section class="cta">
+        <div class="page-shell">
+            <div class="cta-panel reveal">
+                <div>
+                    <h2>Start with a quiz, then build a plan that fits.</h2>
+                    <p>
+                        NutriTrack keeps the first step light for new users, then becomes more personalized after
+                        they complete their Health Profile.
+                    </p>
+                </div>
+
+                <div class="cta-actions">
+                    <a href="{{ route('guest.quiz') }}" class="btn-solid">
+                        <i class="bi bi-clipboard2-pulse"></i>
+                        Try Starter Quiz
+                    </a>
+
+                    @if(Route::has('login'))
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="btn-outline-warm">Open Dashboard</a>
+                        @else
+                            <a href="{{ route('login') }}" class="btn-outline-warm">Login</a>
+                        @endauth
+                    @endif
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
 <footer class="nt-footer">
-    <div class="container">
-        <div class="row align-items-center g-3">
-            <div class="col-12 col-md-6 text-center text-md-start">
-                <div class="footer-brand">Nutri<span>Track</span></div>
-                <small class="text-muted">Personalized Healthy Meal Recommendation System</small><br>
-                <small class="text-muted">Final Year Project — Iffah Binti Ishak, UiTM 2026</small>
+    <div class="page-shell">
+        <div class="footer-grid">
+            <div>
+                <strong>NutriTrack</strong><br>
+                Personalized Healthy Meal Recommendation System
             </div>
-
-            <div class="col-12 col-md-6 text-center text-md-end">
-                <small class="text-muted">Built with Laravel 12 · Bootstrap 5 · MySQL</small><br>
-                <small class="text-muted">© {{ date('Y') }} NutriTrack. All rights reserved.</small>
+            <div>
+                Final Year Project - Iffah Binti Ishak, UiTM 2026<br>
+                Built with Laravel 12, Bootstrap 5, and MySQL
             </div>
         </div>
     </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
                 observer.unobserve(entry.target);
             }
         });
-    }, {
-        threshold: 0.12
-    });
+    }, { threshold: 0.14 });
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
 </script>
 </body>
 </html>
