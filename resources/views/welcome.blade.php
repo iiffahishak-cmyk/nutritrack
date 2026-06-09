@@ -330,148 +330,144 @@
         }
 
         /* =======================
-           FOOD ART
+           MEAL PLAN PREVIEW
         ======================= */
-        .food-stage {
+        .meal-preview {
             position: relative;
-            min-height: 590px;
-            z-index: 3;
-        }
-
-        .plate-glow {
-            position: absolute;
-            width: 410px;
-            height: 410px;
-            right: 6%;
-            top: 50%;
-            transform: translateY(-50%);
-            border-radius: 50%;
-            background:
-                radial-gradient(circle, rgba(167,243,91,.42), transparent 58%);
-            filter: blur(35px);
-            animation: glowPulse 3.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes glowPulse {
-            from { opacity: .55; transform: translateY(-50%) scale(.94); }
-            to { opacity: 1; transform: translateY(-50%) scale(1.05); }
-        }
-
-        .plate {
-            position: absolute;
-            width: 380px;
-            height: 380px;
-            right: 8%;
-            top: 50%;
-            transform: translateY(-50%);
-            border-radius: 50%;
-            background:
-                radial-gradient(circle at 50% 50%, #FFFDF4 0 48%, #EAF7E9 49% 63%, #FFFFFF 64% 100%);
-            box-shadow:
-                0 45px 100px rgba(0,0,0,.35),
-                inset 0 0 0 16px rgba(255,255,255,.7);
-            animation: plateFloat 5s ease-in-out infinite alternate;
-        }
-
-        @keyframes plateFloat {
-            from { margin-top: 0; }
-            to { margin-top: -18px; }
-        }
-
-        .salad {
-            position: absolute;
-            width: 220px;
-            height: 220px;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            background:
-                radial-gradient(circle at 35% 35%, #A7F35B 0 10%, transparent 11%),
-                radial-gradient(circle at 60% 30%, #35D07F 0 12%, transparent 13%),
-                radial-gradient(circle at 45% 65%, #16A34A 0 13%, transparent 14%),
-                radial-gradient(circle at 70% 65%, #FFB347 0 9%, transparent 10%),
-                radial-gradient(circle at 30% 70%, #F97316 0 8%, transparent 9%),
-                linear-gradient(135deg, #DFFFEA, #B7F7C8);
-            box-shadow: inset 0 -18px 40px rgba(8,17,12,.12);
-        }
-
-        .food-emoji {
-            position: absolute;
-            width: 76px;
-            height: 76px;
-            border-radius: 28px;
-            display: grid;
-            place-items: center;
-            font-size: 2.45rem;
-            background: rgba(255,255,255,.86);
-            border: 1px solid rgba(255,255,255,.55);
-            backdrop-filter: blur(18px);
-            box-shadow: 0 24px 50px rgba(0,0,0,.22);
-            animation: foodFloat 4s ease-in-out infinite alternate;
-        }
-
-        .f1 { right: 55%; top: 12%; animation-delay: .1s; }
-        .f2 { right: 2%; top: 18%; animation-delay: .5s; }
-        .f3 { right: 56%; bottom: 14%; animation-delay: .9s; }
-        .f4 { right: 6%; bottom: 10%; animation-delay: 1.3s; }
-
-        @keyframes foodFloat {
-            from { transform: translateY(0) rotate(-3deg); }
-            to { transform: translateY(-18px) rotate(4deg); }
-        }
-
-        .floating-card {
-            position: absolute;
-            z-index: 6;
-            width: 210px;
-            border-radius: 28px;
-            padding: 1rem;
-            background: rgba(255,255,255,.12);
-            border: 1px solid rgba(255,255,255,.18);
-            backdrop-filter: blur(22px);
-            box-shadow: 0 24px 70px rgba(0,0,0,.22);
-            color: white;
-        }
-
-        .floating-card.one {
-            left: 4%;
-            top: 14%;
-        }
-
-        .floating-card.two {
-            right: 0;
-            bottom: 18%;
-        }
-
-        .floating-label {
-            color: rgba(255,255,255,.6);
-            font-size: .7rem;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            font-weight: 900;
-            margin-bottom: .35rem;
-        }
-
-        .floating-title {
-            font-size: .95rem;
-            font-weight: 900;
-            line-height: 1.35;
-            margin-bottom: .8rem;
-        }
-
-        .floating-meter {
-            height: 8px;
-            border-radius: 999px;
-            background: rgba(255,255,255,.14);
+            z-index: 4;
+            max-width: 470px;
+            margin-left: auto;
+            border-radius: 34px;
             overflow: hidden;
+            background: #FFFDF7;
+            color: var(--dark);
+            border: 1px solid rgba(255,255,255,.42);
+            box-shadow: 0 34px 90px rgba(0,0,0,.28);
         }
 
-        .floating-meter span {
-            display: block;
-            height: 100%;
+        .meal-preview-header {
+            padding: 1.25rem 1.25rem .9rem;
+            background:
+                linear-gradient(rgba(8,17,12,.04), rgba(8,17,12,.04)),
+                #FFFDF7;
+            border-bottom: 1px solid rgba(8,17,12,.08);
+        }
+
+        .preview-label {
+            color: #16A34A;
+            font-size: .72rem;
+            font-weight: 900;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            margin-bottom: .45rem;
+        }
+
+        .meal-preview-header h3 {
+            font-size: 1.28rem;
+            font-weight: 900;
+            letter-spacing: -.04em;
+            margin: 0;
+        }
+
+        .preview-target {
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+            margin-top: .75rem;
+            padding: .45rem .7rem;
             border-radius: 999px;
-            background: linear-gradient(90deg, var(--green), var(--green-2));
+            background: #F4FFF7;
+            color: #166534;
+            font-size: .78rem;
+            font-weight: 800;
+        }
+
+        .preview-list {
+            padding: .9rem;
+        }
+
+        .preview-meal {
+            display: grid;
+            grid-template-columns: 84px 1fr auto;
+            gap: .85rem;
+            align-items: center;
+            padding: .75rem;
+            border-radius: 22px;
+            background: white;
+            border: 1px solid rgba(8,17,12,.07);
+            margin-bottom: .75rem;
+        }
+
+        .preview-meal:last-child {
+            margin-bottom: 0;
+        }
+
+        .preview-photo {
+            width: 84px;
+            aspect-ratio: 4 / 3;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #EEF7EA;
+        }
+
+        .preview-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .preview-time {
+            color: #667085;
+            font-size: .72rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .preview-name {
+            color: var(--dark);
+            font-weight: 900;
+            font-size: .95rem;
+            margin: .15rem 0;
+        }
+
+        .preview-meta {
+            color: #667085;
+            font-size: .76rem;
+            font-weight: 700;
+        }
+
+        .preview-kcal {
+            min-width: 58px;
+            text-align: center;
+            padding: .48rem .55rem;
+            border-radius: 16px;
+            background: #F4FFF7;
+            color: #166534;
+            font-size: .8rem;
+            font-weight: 900;
+        }
+
+        .preview-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1rem 1.25rem 1.2rem;
+            background: #F8FBF6;
+            border-top: 1px solid rgba(8,17,12,.08);
+        }
+
+        .preview-footer span {
+            color: #475467;
+            font-size: .82rem;
+            font-weight: 800;
+        }
+
+        .preview-score {
+            color: #16A34A;
+            font-weight: 900;
         }
 
         /* =======================
@@ -835,29 +831,8 @@
                 border-radius: 38px;
             }
 
-            .food-stage {
-                min-height: 500px;
-                margin-top: 2rem;
-            }
-
-            .plate {
-                width: 330px;
-                height: 330px;
-                right: 50%;
-                transform: translate(50%, -50%);
-            }
-
-            .plate-glow {
-                right: 50%;
-                transform: translate(50%, -50%);
-            }
-
-            .floating-card.one {
-                left: 0;
-            }
-
-            .floating-card.two {
-                right: 0;
+            .meal-preview {
+                margin: 1.5rem auto 0;
             }
 
             .bento-card.large,
@@ -923,44 +898,33 @@
                 font-size: .96rem;
             }
 
+            .meal-preview {
+                border-radius: 26px;
+            }
+
+            .preview-meal {
+                grid-template-columns: 72px 1fr;
+                align-items: start;
+            }
+
+            .preview-photo {
+                width: 72px;
+            }
+
+            .preview-kcal {
+                grid-column: 2;
+                width: fit-content;
+            }
+
+            .preview-footer {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
             .btn-hero-primary,
             .btn-hero-ghost,
             .btn-cta {
                 width: 100%;
-            }
-
-            .food-stage {
-                min-height: 430px;
-            }
-
-            .plate {
-                width: 270px;
-                height: 270px;
-            }
-
-            .salad {
-                width: 155px;
-                height: 155px;
-            }
-
-            .food-emoji {
-                width: 58px;
-                height: 58px;
-                border-radius: 22px;
-                font-size: 1.9rem;
-            }
-
-            .floating-card {
-                width: 178px;
-                padding: .9rem;
-            }
-
-            .floating-card.one {
-                top: 4%;
-            }
-
-            .floating-card.two {
-                bottom: 4%;
             }
 
             .section-padding,
@@ -1032,19 +996,19 @@
                         </div>
 
                         <h1 class="hero-title">
-                            Your next meal should already <em>understand you.</em>
+                            Meal planning that starts with <em>your profile.</em>
                         </h1>
 
                         <p class="hero-desc">
-                            NutriTrack recommends healthier meals based on your daily calorie requirement,
-                            food allergies, personal goal, and cuisine preference — helping you plan meals
-                            with less guessing and more confidence.
+                            NutriTrack is a web-based FYP system that recommends healthier meals using
+                            daily calorie needs, allergies, goals, and cuisine preference. It helps users
+                            choose meals with clearer nutrition context, not guesswork.
                         </p>
 
                         <div class="hero-actions">
                             <a href="{{ route('guest.quiz') }}" class="btn-hero-primary">
-                                <i class="bi bi-rocket-takeoff-fill"></i>
-                                Get started free
+                                <i class="bi bi-clipboard2-pulse-fill"></i>
+                                Start guest quiz
                             </a>
 
                             <a href="#how-it-works" class="btn-hero-ghost">
@@ -1073,32 +1037,69 @@
                 </div>
 
                 <div class="col-12 col-lg-5">
-                    <div class="food-stage">
-                        <div class="plate-glow"></div>
-
-                        <div class="plate">
-                            <div class="salad"></div>
-                        </div>
-
-                        <div class="food-emoji f1">🥑</div>
-                        <div class="food-emoji f2">🍓</div>
-                        <div class="food-emoji f3">🍚</div>
-                        <div class="food-emoji f4">🥗</div>
-
-                        <div class="floating-card one">
-                            <div class="floating-label">Meal Safety</div>
-                            <div class="floating-title">Allergy-risk meals are filtered first.</div>
-                            <div class="floating-meter">
-                                <span style="width: 88%;"></span>
+                    <div class="meal-preview">
+                        <div class="meal-preview-header">
+                            <div class="preview-label">Today's Meal Plan Preview</div>
+                            <h3>A full day built around one calorie target.</h3>
+                            <div class="preview-target">
+                                <i class="bi bi-bullseye"></i>
+                                1,850 kcal target · Western preference
                             </div>
                         </div>
 
-                        <div class="floating-card two">
-                            <div class="floating-label">Meal Fit</div>
-                            <div class="floating-title">Meals are ranked by goal and calorie gap.</div>
-                            <div class="floating-meter">
-                                <span style="width: 74%;"></span>
+                        <div class="preview-list">
+                            <div class="preview-meal">
+                                <div class="preview-photo">
+                                    <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=420&q=80" alt="Avocado toast breakfast">
+                                </div>
+                                <div>
+                                    <div class="preview-time">Breakfast</div>
+                                    <div class="preview-name">Avocado Toast</div>
+                                    <div class="preview-meta">egg · wholegrain · balanced fat</div>
+                                </div>
+                                <div class="preview-kcal">340</div>
                             </div>
+
+                            <div class="preview-meal">
+                                <div class="preview-photo">
+                                    <img src="https://images.unsplash.com/photo-1553909489-cd47e0907980?auto=format&fit=crop&w=420&q=80" alt="Chicken sandwich lunch">
+                                </div>
+                                <div>
+                                    <div class="preview-time">Lunch</div>
+                                    <div class="preview-name">Chicken Sandwich</div>
+                                    <div class="preview-meta">lean protein · vegetables</div>
+                                </div>
+                                <div class="preview-kcal">480</div>
+                            </div>
+
+                            <div class="preview-meal">
+                                <div class="preview-photo">
+                                    <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=420&q=80" alt="Salmon bowl dinner">
+                                </div>
+                                <div>
+                                    <div class="preview-time">Dinner</div>
+                                    <div class="preview-name">Salmon Quinoa Bowl</div>
+                                    <div class="preview-meta">protein · fibre · steady energy</div>
+                                </div>
+                                <div class="preview-kcal">520</div>
+                            </div>
+
+                            <div class="preview-meal">
+                                <div class="preview-photo">
+                                    <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=420&q=80" alt="Yogurt and fruit snack">
+                                </div>
+                                <div>
+                                    <div class="preview-time">Snack</div>
+                                    <div class="preview-name">Yogurt Fruit Cup</div>
+                                    <div class="preview-meta">simple snack · lower sugar</div>
+                                </div>
+                                <div class="preview-kcal">210</div>
+                            </div>
+                        </div>
+
+                        <div class="preview-footer">
+                            <span><i class="bi bi-shield-check me-1"></i> Allergens checked before ranking</span>
+                            <span class="preview-score">92% fit</span>
                         </div>
                     </div>
                 </div>
@@ -1112,13 +1113,13 @@
                     <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Breakfast, lunch, dinner, and snack planning</span>
                     <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Personalized calorie targets</span>
                     <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Allergy-aware recommendations</span>
-                    <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Meal diary support</span>
+                    <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Meal Log support</span>
                     <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Swap and rate meals</span>
 
                     <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Breakfast, lunch, dinner, and snack planning</span>
                     <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Personalized calorie targets</span>
                     <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Allergy-aware recommendations</span>
-                    <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Meal diary support</span>
+                    <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Meal Log support</span>
                     <span class="marquee-item"><i class="bi bi-check-circle-fill"></i> Swap and rate meals</span>
                 </div>
             </div>
@@ -1132,13 +1133,13 @@
         <div class="row align-items-end g-4">
             <div class="col-12 col-lg-7 reveal">
                 <div class="section-kicker">What NutriTrack does</div>
-                <h2 class="section-title">Not just meal ideas. A smarter recommendation flow.</h2>
+                <h2 class="section-title">A practical flow for everyday meal decisions.</h2>
             </div>
 
             <div class="col-12 col-lg-5 reveal">
                 <p class="section-desc ms-lg-auto">
-                    NutriTrack uses user profile data, calorie calculation, allergy filtering,
-                    and preference-based scoring to recommend meals that feel more personal and practical.
+                    The system connects profile data, calorie calculation, allergy checks, and meal scoring
+                    into one student-friendly workflow for planning, choosing, and saving meals.
                 </p>
             </div>
         </div>
@@ -1148,10 +1149,10 @@
                 <div class="bento-icon">
                     <i class="bi bi-calculator-fill"></i>
                 </div>
-                <h3>Daily calorie requirement calculation</h3>
+                <h3>Daily calorie target calculation</h3>
                 <p>
-                    NutriTrack calculates BMR, TDEE, and Daily Caloric Requirement based on user profile details
-                    such as age, weight, height, activity level, and health goal.
+                    NutriTrack estimates BMR, TDEE, and Daily Caloric Requirement from age, weight,
+                    height, activity level, and health goal before meals are recommended.
                 </p>
                 <div class="bento-big-text">DCR</div>
             </div>
@@ -1162,7 +1163,8 @@
                 </div>
                 <h3>Allergy-aware meal filtering</h3>
                 <p>
-                    Meals that may contain declared allergens are filtered out before recommendations are shown.
+                    Meals that may contain declared allergens are removed early so the recommendation list
+                    is safer and easier to review.
                 </p>
                 <div class="bento-big-text">Safe</div>
             </div>
@@ -1173,7 +1175,8 @@
                 </div>
                 <h3>Cuisine preference matching</h3>
                 <p>
-                    Meals matching the user’s preferred cuisine receive better ranking scores.
+                    Meal ranking considers the user's selected cuisine preference such as Malay, Chinese,
+                    Indian, Western, or Middle Eastern.
                 </p>
                 <div class="bento-big-text">Taste</div>
             </div>
@@ -1184,7 +1187,7 @@
                 </div>
                 <h3>Weekly meal planning</h3>
                 <p>
-                    Users can plan meals across different days for a more consistent eating routine.
+                    Users can generate a weekly view when they want structure beyond today's meals.
                 </p>
                 <div class="bento-big-text">Plan</div>
             </div>
@@ -1195,7 +1198,7 @@
                 </div>
                 <h3>Swap and rate meals</h3>
                 <p>
-                    Users can change unsuitable meals and rate recommendations based on their experience.
+                    Meal Options let users refresh, compare, rate, and save the meals that fit them best.
                 </p>
                 <div class="bento-big-text">Rate</div>
             </div>
@@ -1204,11 +1207,12 @@
                 <div class="bento-icon" style="background: #DCFCE7;">
                     <i class="bi bi-journal-check"></i>
                 </div>
-                <h3>Personal meal diary</h3>
+                <h3>Personal Meal Log</h3>
                 <p>
-                    Recommended meals can be saved into a personal diary, allowing users to review their saved meals anytime.
+                    Recommended meals can be saved into a personal Meal Log, allowing users to review
+                    their saved meals anytime.
                 </p>
-                <div class="bento-big-text">Diary</div>
+                <div class="bento-big-text">Log</div>
             </div>
 
             <div class="bento-card large reveal">
@@ -1217,8 +1221,8 @@
                 </div>
                 <h3>AI food logger support</h3>
                 <p>
-                    Users can describe what they ate and receive estimated calorie and macro information,
-                    supporting better awareness of their daily food intake.
+                    Users can describe a meal in normal language and receive estimated calories and macros
+                    for quicker food intake tracking.
                 </p>
                 <div class="bento-big-text">AI</div>
             </div>
@@ -1277,8 +1281,8 @@
 
             <div class="journey-row reveal">
                 <div class="journey-box">
-                    <h4><i class="bi bi-journal-check me-1" style="color:#16A34A;"></i> Save to diary</h4>
-                    <p>Users can save selected meals and review them later in their personal meal diary.</p>
+                    <h4><i class="bi bi-journal-check me-1" style="color:#16A34A;"></i> Save to Meal Log</h4>
+                    <p>Users can save selected meals and review them later in their personal Meal Log.</p>
                 </div>
                 <div class="journey-number">05</div>
                 <div class="empty-cell"></div>
@@ -1352,7 +1356,7 @@
                     <div class="row g-3">
                         <div class="col-12 col-md-6">
                             <div style="border-radius:24px;padding:1rem;background:#F4FFF7;border:1px solid rgba(22,163,74,.12);height:100%;">
-                                <div style="font-size:2rem;margin-bottom:.5rem;">🔥</div>
+                                <div style="font-size:1.65rem;margin-bottom:.5rem;color:#16A34A;"><i class="bi bi-activity"></i></div>
                                 <h5 style="font-weight:900;color:var(--dark);">BMR & TDEE</h5>
                                 <p style="color:var(--muted);font-size:.9rem;line-height:1.7;margin:0;">
                                     Learn how your body burns calories at rest and during daily activity.
@@ -1362,7 +1366,7 @@
 
                         <div class="col-12 col-md-6">
                             <div style="border-radius:24px;padding:1rem;background:#FFF8E8;border:1px solid rgba(249,115,22,.12);height:100%;">
-                                <div style="font-size:2rem;margin-bottom:.5rem;">🎯</div>
+                                <div style="font-size:1.65rem;margin-bottom:.5rem;color:#F97316;"><i class="bi bi-bullseye"></i></div>
                                 <h5 style="font-weight:900;color:var(--dark);">DCR</h5>
                                 <p style="color:var(--muted);font-size:.9rem;line-height:1.7;margin:0;">
                                     Understand how NutriTrack adjusts calories based on lose, maintain, or gain weight goals.
@@ -1372,7 +1376,7 @@
 
                         <div class="col-12">
                             <div style="border-radius:24px;padding:1rem;background:#F0F9FF;border:1px solid rgba(14,165,233,.12);">
-                                <div style="font-size:2rem;margin-bottom:.5rem;">🍽️</div>
+                                <div style="font-size:1.65rem;margin-bottom:.5rem;color:#0284C7;"><i class="bi bi-pie-chart-fill"></i></div>
                                 <h5 style="font-weight:900;color:var(--dark);">Meal calorie split</h5>
                                 <p style="color:var(--muted);font-size:.9rem;line-height:1.7;margin:0;">
                                     See how NutriTrack divides daily calories into breakfast, lunch, dinner, and snack targets.
