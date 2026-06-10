@@ -4,7 +4,7 @@
 
     <style>
         .password-rule-popup {
-            display: none;
+            display: flex;
             align-items: flex-start;
             gap: .55rem;
             margin-top: .7rem;
@@ -89,6 +89,7 @@
                        class="auth-input"
                        required
                        minlength="8"
+                       title="Password must be at least 8 characters."
                        aria-describedby="password-rule-popup"
                        autocomplete="new-password">
 
@@ -113,6 +114,7 @@
                        class="auth-input"
                        required
                        minlength="8"
+                       title="Password must be at least 8 characters."
                        autocomplete="new-password">
 
                 <button type="button" class="eye-btn" onclick="togglePassword('password_confirmation', 'eye-icon-2')">
@@ -146,9 +148,6 @@
             }
 
             const isValid = passwordInput.value.length >= 8;
-            const shouldShow = forceShow || passwordInput.value.length > 0 || document.activeElement === passwordInput;
-
-            passwordPopup.classList.toggle('show', shouldShow);
             passwordPopup.classList.toggle('valid', isValid);
 
             if (passwordPopupIcon) {
@@ -166,12 +165,6 @@
 
         passwordInput?.addEventListener('focus', () => updatePasswordRule(true));
         passwordInput?.addEventListener('input', () => updatePasswordRule(true));
-
-        passwordInput?.addEventListener('blur', () => {
-            if (passwordInput.value.length === 0) {
-                passwordPopup?.classList.remove('show');
-            }
-        });
 
         registerForm?.addEventListener('submit', (event) => {
             if (!updatePasswordRule(true)) {
